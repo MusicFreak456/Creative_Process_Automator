@@ -2,6 +2,7 @@
 
 CheckBox::CheckBox(string title, sf::Font& font)
 {
+    this->checked = false;
     this->title.setFont(font);
     this->title.setString(title);
     this->title.setCharacterSize(19);
@@ -41,4 +42,21 @@ void CheckBox::hovers_detection(sf::Vector2f mouse_coords)
         this->border.setFillColor(sf::Color(255,255,255,30));
     }
     
+}
+
+void CheckBox::mouse_pressed(sf::Vector2f mouse_coords)
+{
+    sf::FloatRect bounds = this->border.getGlobalBounds();
+    if(bounds.contains(mouse_coords))
+    {
+        this->checked = !this->checked;
+
+        if(this->checked)this->ch_box.setFillColor(sf::Color::Black);
+        else this->ch_box.setFillColor(sf::Color::White);
+    }
+}
+
+bool CheckBox::is_checked()
+{
+    return this->checked;
 }

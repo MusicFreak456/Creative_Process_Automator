@@ -4,6 +4,8 @@ Scale::Scale(Keyboard * keyboard, Key * root_key ,sf::Font & font): keyboard(key
 {
     this->notes.push_back(this->root_key);
 
+    this->show_scale = false;
+
     this->ch_box.move_position(950,0);
 
     this->title.setFont(font);
@@ -53,17 +55,20 @@ void Scale::generate_scale()
     this->string_repr.setString(repr);
 
     this->set_title();
-
-    this->light_up();
 }
 
 void Scale::change_root(Key* new_root)
 {
     this->dark_down();
     this->root_key = new_root;
+    this->root_key->activate();
     this->notes.clear();
     this->notes.push_back(root_key);
     this->generate_scale();
+    if(this->show_scale)
+    {
+        this->light_up();
+    }
 }
 
 void Scale::light_up()
@@ -78,6 +83,7 @@ void Scale::dark_down()
 {
     for(Key * k : notes)
     {
+        if(k!=root_key)
         k->deactivate();
     }
 }
@@ -85,4 +91,18 @@ void Scale::dark_down()
 void Scale::hovers_detection(sf::Vector2f mouse_coords)
 {
     this->ch_box.hovers_detection(mouse_coords);
+}
+void Scale::mouse_pressed(sf::Vector2f mouse_coords)
+{
+    this->ch_box.mouse_pressed(mouse_coords);
+    if(this->ch_box.is_checked() && !this->show_scale)
+    {
+        this->show_scale = true;
+        this->light_up();
+    }
+    else if (!this->ch_box.is_checked() && this->show_scale)
+    {
+        this->show_scale = false;
+        this->dark_down();
+    }
 }

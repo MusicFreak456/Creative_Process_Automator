@@ -22,6 +22,8 @@ private:
 
     CheckBox ch_box;
 
+    bool show_scale;
+
     void generate_scale();
     void set_title();
 public:
@@ -30,6 +32,7 @@ public:
     void light_up();
     void dark_down();
     void hovers_detection(sf::Vector2f);
+    void mouse_pressed(sf::Vector2f);
 private:
     void draw(sf::RenderTarget&,sf::RenderStates) const;
 };

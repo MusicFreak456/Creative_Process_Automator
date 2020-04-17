@@ -72,6 +72,11 @@ int main()
                         ctrl_panel.set_root(hovered_key);
                         activated_key=hovered_key;
                     }
+                    else
+                    {
+                        ctrl_panel.mouse_pressed(mouse_coords);
+                    }
+                    
                 }
             }
         }

@@ -20,3 +20,8 @@ void ControlPanel::hovers_detection(sf::Vector2f mouse_coords)
 {
     this->scale.hovers_detection(mouse_coords);
 }
+
+void ControlPanel::mouse_pressed(sf::Vector2f mouse_coords)
+{
+    this->scale.mouse_pressed(mouse_coords);
+}
