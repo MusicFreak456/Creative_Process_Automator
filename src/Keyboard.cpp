@@ -1,5 +1,7 @@
 #include"Keyboard.hpp"
 
+const string NOTES[] = {"C","D","E","F","G","A","B","C"}; 
+
 Keyboard::Keyboard(): number_of_white_keys(52), number_of_black_keys(36)
 {
     int spacing = 2;
@@ -11,8 +13,7 @@ Keyboard::Keyboard(): number_of_white_keys(52), number_of_black_keys(36)
     {
         WhiteKey new_key;
         new_key.set_value(value);
-        string note;
-        note.push_back((char)('A'+helper-1));
+        string note = NOTES[helper-1];
         new_key.set_note(note);
         value++;
         new_key.setPosition(sf::Vector2f((i-1)*WhiteKey::Width + (i-1)* spacing,0));
@@ -46,7 +47,7 @@ void Keyboard::draw(sf::RenderTarget& target,sf::RenderStates states) const
     }
 }
 
-void Keyboard::movePosition(float x, float y)
+void Keyboard::move_position(float x, float y)
 {
     for(Key & k : white_keys)
     {
@@ -75,7 +76,11 @@ Key* Keyboard::mouse_over(sf::Vector2f mouse__pos)
         if(bounds.contains(mouse__pos.x,mouse__pos.y))return &k;
 
     }
-    
-
     return nullptr;
+}
+
+Key * Keyboard::activate_init_white_key(int i)
+{
+    this->white_keys[i].activate();
+    return &white_keys[i];
 }

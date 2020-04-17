@@ -16,8 +16,9 @@ private:
     const int number_of_black_keys;
 public:
     Keyboard();
-    void movePosition(float,float);
+    void move_position(float,float);
     Key* mouse_over(sf::Vector2f);
+    Key* activate_init_white_key(int);
 
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
