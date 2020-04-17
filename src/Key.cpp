@@ -1,15 +1,17 @@
 #include"Key.hpp"
 
-WhiteKey::WhiteKey(): height(200), width(34)
+WhiteKey::WhiteKey()
 {
+    this->active = false;
     this->setFillColor(sf::Color::White);
-    this->setSize(sf::Vector2f(width,height));
+    this->setSize(sf::Vector2f(Width,Height));
 }
 
-BlackKey::BlackKey(): height(120), width(20)
+BlackKey::BlackKey()
 {
+    this->active = false;
     this->setFillColor(sf::Color::Black);
-    this->setSize(sf::Vector2f(20,120));
+    this->setSize(sf::Vector2f(Width,Height));
 }
 
 void WhiteKey::set_note(string note)
@@ -20,16 +22,29 @@ string WhiteKey::get_note()
 {
     return this->note;
 }
-void WhiteKey::set_value(int value)
+void WhiteKey::set_value(float value)
 {
-    this->int_value=value;
+    this->value=value;
 }
-int WhiteKey::get_value()
+float WhiteKey::get_value()
 {
-    return this->int_value;
+    return this->value;
 }
 
-int WhiteKey::get_height()
+void WhiteKey::reset_color()
 {
-    return this->height;
+    this->setFillColor(sf::Color::White);
+}
+void BlackKey::reset_color()
+{
+    this->setFillColor(sf::Color::Black);
+}
+
+void WhiteKey::highlight()
+{
+    this->setFillColor(sf::Color(255,219,77));
+}
+void BlackKey::highlight()
+{
+    this->setFillColor(sf::Color(230,184,0));
 }
