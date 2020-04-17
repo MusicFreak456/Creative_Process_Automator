@@ -15,10 +15,13 @@ private:
     const int number_of_white_keys;
     const int number_of_black_keys;
 public:
+    static const int number_of_keys = 88;
+    
     Keyboard();
     void move_position(float,float);
     Key* mouse_over(sf::Vector2f);
     Key* activate_init_white_key(int);
+    Key* find_key(float index);
 
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;

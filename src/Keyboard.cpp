@@ -84,3 +84,16 @@ Key * Keyboard::activate_init_white_key(int i)
     this->white_keys[i].activate();
     return &white_keys[i];
 }
+
+Key * Keyboard::find_key(float index)
+{
+    for(Key & k : black_keys)
+    {
+        if(k.get_value() == index)return &k;
+    }
+    for(Key & k : white_keys)
+    {
+        if(k.get_value() == index)return &k;
+    }
+    return nullptr;
+}

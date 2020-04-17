@@ -31,16 +31,15 @@ int main()
     Key * hovered_key = nullptr;
     Key * activated_key = keyboard.activate_init_white_key(23);
 
-    string active_note = activated_key->get_note();
-
-    ControlPanel ctrl_panel(montserrat_regular,active_note);
+    ControlPanel ctrl_panel(montserrat_regular,activated_key,&keyboard);
 
     bool hovering_over_key;
 
     while(main_window.isOpen())
     {
-
-        Key * new_hovered = keyboard.mouse_over(main_window.mapPixelToCoords(sf::Mouse::getPosition(main_window)));
+        sf::Vector2f mouse_coords = main_window.mapPixelToCoords(sf::Mouse::getPosition(main_window));
+        ctrl_panel.hovers_detection(mouse_coords);
+        Key * new_hovered = keyboard.mouse_over(mouse_coords);
         if(new_hovered!=hovered_key)
         {
             if(hovered_key!=nullptr)hovered_key->reset_color();
@@ -69,7 +68,8 @@ int main()
                     if(hovering_over_key)
                     {
                         if(activated_key!=nullptr) activated_key->deactivate();
-                        ctrl_panel.set_root(hovered_key->activate());
+                        hovered_key->activate();
+                        ctrl_panel.set_root(hovered_key);
                         activated_key=hovered_key;
                     }
                 }

@@ -1,20 +1,23 @@
 #ifndef KEY_HPP
 #define KEY_HPP
 #include<SFML/Graphics.hpp>
-#include"Highlightable.hpp"
 
 using namespace std;
 
-class Key :public sf::RectangleShape,public IHighlightable
+class Key :public sf::RectangleShape
 {
 protected:
     string note;
     float value;
     bool active;
 public:
-    virtual string activate()=0;
-    virtual void deactivate()=0;
     virtual string get_note()=0;
+    virtual float get_value()=0;
+    virtual void in_scale()=0;
+    virtual void highlight()= 0;
+    virtual void reset_color()= 0;
+    virtual void activate()=0;
+    virtual void deactivate()=0;
 };
 
 class WhiteKey :public Key
@@ -22,7 +25,8 @@ class WhiteKey :public Key
 
 public:
     static const int Height = 200;
-    static const int Width = 32; 
+    static const int Width = 32;
+    sf::Color default_color;
 public:
     WhiteKey();
     void set_note(string);
@@ -31,8 +35,9 @@ public:
     float get_value();
     void reset_color();
     void highlight();
-    string activate();
+    void activate();
     void deactivate();
+    void in_scale();
 };
 
 class BlackKey :public WhiteKey
@@ -42,10 +47,10 @@ public:
     static const int Width = 20;
 public:
     BlackKey();
-    void reset_color();
     void highlight();
-    string activate();
+    void activate();
     void deactivate();
+    void in_scale();
 };
 
 

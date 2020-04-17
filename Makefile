@@ -3,7 +3,13 @@ NAME = cpa
 LINKER_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 OBJ_DIR = obj
 SRC_DIR = src
-OBJ = $(OBJ_DIR)/main.o $(OBJ_DIR)/Keyboard.o $(OBJ_DIR)/Key.o $(OBJ_DIR)/ActiveNoteBracket.o $(OBJ_DIR)/ControlPanel.o
+OBJ = $(OBJ_DIR)/main.o \
+	$(OBJ_DIR)/Keyboard.o \
+	$(OBJ_DIR)/Key.o \
+	$(OBJ_DIR)/ActiveNoteBracket.o \
+	$(OBJ_DIR)/ControlPanel.o \
+	$(OBJ_DIR)/Scale.o \
+	$(OBJ_DIR)/CheckBox.o
 OBJ_PATH = ./$(OBJ_DIR)/
 SRC_PATH = ./$(SRC_DIR)/
 

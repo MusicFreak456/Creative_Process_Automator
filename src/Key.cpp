@@ -3,14 +3,16 @@
 WhiteKey::WhiteKey()
 {
     this->active = false;
-    this->setFillColor(sf::Color::White);
+    this->default_color = sf::Color::White;
+    this->setFillColor(this->default_color);
     this->setSize(sf::Vector2f(Width,Height));
 }
 
 BlackKey::BlackKey()
 {
     this->active = false;
-    this->setFillColor(sf::Color::Black);
+    this->default_color = sf::Color::Black;
+    this->setFillColor(this->default_color);
     this->setSize(sf::Vector2f(Width,Height));
 }
 
@@ -33,48 +35,57 @@ float WhiteKey::get_value()
 
 void WhiteKey::reset_color()
 {
-    if(!active)
-    this->setFillColor(sf::Color::White);
+    this->setFillColor(this->default_color);
 }
-void BlackKey::reset_color()
-{
-    if(!active)
-    this->setFillColor(sf::Color::Black);
-}
+
 
 void WhiteKey::highlight()
 {
-    if(!active)
     this->setFillColor(sf::Color(255,219,77));
 }
 void BlackKey::highlight()
 {
-    if(!active)
     this->setFillColor(sf::Color(230,184,0));
 }
 
-string WhiteKey::activate()
+void WhiteKey::activate()
 {
     this->active = true;
-    this->setFillColor(sf::Color(179,0,0));
-    return this->note;
+    this->default_color = sf::Color(0,77,38);
+    this->reset_color();
 }
 
-string BlackKey::activate()
+void BlackKey::activate()
 {
     this->active = true;
-    this->setFillColor(sf::Color(179,0,0));
-    return this->note;
+    this->default_color = sf::Color(0,77,38);
+    this->reset_color();
 }
 
 void WhiteKey::deactivate()
 {
     this->active =false;
+    this->default_color = sf::Color::White;
     this->reset_color();
 }
 
 void BlackKey::deactivate()
 {
     this->active =false;
+    this->default_color = sf::Color::Black;
+    this->reset_color();
+}
+
+void WhiteKey::in_scale()
+{
+    this->active =false;
+    this->default_color = sf::Color(102,255,179);
+    this->reset_color();
+}
+
+void BlackKey::in_scale()
+{
+    this->active =false;
+    this->default_color = sf::Color(0,179,89);
     this->reset_color();
 }
