@@ -5,7 +5,7 @@ root_note(root_note),
 root_bracket(ActiveNoteBracket(font,root_note->get_note())),
 keyboard(keyboard),
 scale(keyboard,root_note,font),
-chord_bracket(root_note,font),
+chord_bracket(&(this->scale),keyboard,font),
 volume_bracket(font)
 {}
 

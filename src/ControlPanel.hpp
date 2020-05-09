@@ -14,8 +14,8 @@ private:
     ChordBracket chord_bracket;
     VolumeBracket volume_bracket;
     ScaleBracket scale;
-    Key * root_note;
-    Keyboard * keyboard;
+    Key* root_note;
+    Keyboard* keyboard;
 
 public:
     ControlPanel(sf::Font& ,Key*,Keyboard*);

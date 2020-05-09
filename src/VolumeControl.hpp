@@ -8,6 +8,7 @@ class VolumeBracket :public sf::Drawable
 {
 private:
     sf::RectangleShape border;
+    sf::Text title;
 public:
     VolumeBracket(sf::Font&);
 private:
