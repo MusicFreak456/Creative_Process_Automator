@@ -9,7 +9,9 @@ OBJ = $(OBJ_DIR)/main.o \
 	$(OBJ_DIR)/ActiveNoteBracket.o \
 	$(OBJ_DIR)/ControlPanel.o \
 	$(OBJ_DIR)/Scale.o \
-	$(OBJ_DIR)/CheckBox.o
+	$(OBJ_DIR)/CheckBox.o \
+	$(OBJ_DIR)/Chord.o \
+	$(OBJ_DIR)/VolumeControl.o
 OBJ_PATH = ./$(OBJ_DIR)/
 SRC_PATH = ./$(SRC_DIR)/
 
@@ -19,7 +21,7 @@ SRC_PATH = ./$(SRC_DIR)/
 #compile with:
 #$ make
 #run with:
-#$ ./apt
+#$ ./cpa
 #enjoy
 
 $(NAME): $(OBJ_DIR) $(OBJ)

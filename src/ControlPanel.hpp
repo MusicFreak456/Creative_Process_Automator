@@ -3,13 +3,17 @@
 #include"ActiveNoteBracket.hpp"
 #include"Keyboard.hpp"
 #include"Scale.hpp"
+#include"Chord.hpp"
+#include"VolumeControl.hpp"
 #include<SFML/Graphics.hpp>
 
 class ControlPanel :public sf::Drawable
 {
 private:
     ActiveNoteBracket root_bracket;
-    Scale scale;
+    ChordBracket chord_bracket;
+    VolumeBracket volume_bracket;
+    ScaleBracket scale;
     Key * root_note;
     Keyboard * keyboard;
 

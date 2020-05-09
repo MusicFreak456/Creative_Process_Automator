@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-    sf::RenderWindow main_window(sf::VideoMode(1760,500),"Creative Process Automator",sf::Style::Close);
+    sf::RenderWindow main_window(sf::VideoMode(1760,500),"Creative Process Automator Demo",sf::Style::Close);
     main_window.setFramerateLimit(60);
 
     sf::Font montserrat_black;

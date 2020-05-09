@@ -1,12 +1,20 @@
 #include"ControlPanel.hpp"
 
-ControlPanel::ControlPanel(sf::Font& font, Key * root_note,Keyboard * keyboard): root_note(root_note), root_bracket(ActiveNoteBracket(font,root_note->get_note())),
-keyboard(keyboard), scale(keyboard,root_note,font){}
+ControlPanel::ControlPanel(sf::Font& font, Key* root_note, Keyboard* keyboard): 
+root_note(root_note), 
+root_bracket(ActiveNoteBracket(font,root_note->get_note())),
+keyboard(keyboard),
+scale(keyboard,root_note,font),
+chord_bracket(root_note,font),
+volume_bracket(font)
+{}
 
 void ControlPanel::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
     target.draw(this->root_bracket);
     target.draw(this->scale);
+    target.draw(this->chord_bracket);
+    target.draw(this->volume_bracket);
 }
 
 void ControlPanel::set_root(Key* root_note)
