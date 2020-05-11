@@ -10,8 +10,9 @@ using namespace std;
 
 class ScaleBracket :public sf::Drawable
 {
-private:
+public:
     vector<Key*> notes;
+private:
     sf::RectangleShape border;
 
     Keyboard * keyboard;

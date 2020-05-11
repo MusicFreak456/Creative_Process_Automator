@@ -5,9 +5,11 @@ root_note(root_note),
 root_bracket(ActiveNoteBracket(font,root_note->get_note())),
 keyboard(keyboard),
 scale(keyboard,root_note,font),
-chord_bracket(&(this->scale),keyboard,font),
+chord_bracket(keyboard,font),
 volume_bracket(font)
-{}
+{
+    this->chord_bracket.set_scale(&(this->scale));
+}
 
 void ControlPanel::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
@@ -22,6 +24,7 @@ void ControlPanel::set_root(Key* root_note)
     this->root_note = root_note;
     this->root_bracket.set_note(root_note->get_note());
     this->scale.change_root(root_note);
+    this->chord_bracket.set_scale(&(this->scale));
 }
 
 void ControlPanel::hovers_detection(sf::Vector2f mouse_coords)
