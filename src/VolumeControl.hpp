@@ -9,6 +9,7 @@ class VolumeWindow :public sf::Drawable
 private:
     sf::RectangleShape border;
     sf::Text title;
+    sf::Text temp;
 public:
     VolumeWindow(sf::Font&);
 private:

@@ -20,8 +20,8 @@ ScaleWindow::ScaleWindow(Keyboard * keyboard, Key * root_key ,sf::Font & font): 
     this->generate_scale();
     
     this->border.setPosition(304,0);
-    this->border.setSize(sf::Vector2f(796,148));
-    this->border.setFillColor(sf::Color(255,255,255,10));
+    this->border.setSize(sf::Vector2f(796,146));
+    this->border.setFillColor(sf::Color(255,255,255,5));
 }
 
 void ScaleWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
@@ -105,4 +105,9 @@ void ScaleWindow::mouse_pressed(sf::Vector2f mouse_coords)
         this->show_scale = false;
         this->dark_down();
     }
+}
+
+vector<Key *> ScaleWindow::get_vector_of_notes()
+{
+    return this->notes;
 }

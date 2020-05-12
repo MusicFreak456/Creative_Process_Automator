@@ -4,19 +4,21 @@
 #include"Keyboard.hpp"
 #include"Scale.hpp"
 #include"Chord.hpp"
+#include"Progression.hpp"
 #include"VolumeControl.hpp"
 #include<SFML/Graphics.hpp>
 
 class ControlPanel :public sf::Drawable
 {
 private:
-    ActiveNoteWindow root_bracket;
-    ChordWindow chord_bracket;
-    VolumeWindow volume_bracket;
+    ActiveNoteWindow root_window;
+    ChordWindow chord_window;
+    VolumeWindow volume_window;
     ScaleWindow scale;
+    ProgressionWindow progression_window;
+
     Key* root_note;
     Keyboard* keyboard;
-
 public:
     ControlPanel(sf::Font& ,Key*,Keyboard*);
     void set_root(Key*);

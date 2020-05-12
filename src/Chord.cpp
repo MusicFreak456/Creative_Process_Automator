@@ -44,30 +44,32 @@ void ChordWindow::generate_chords(sf::Font& font,ScaleWindow * scale)
 {
     Chord * new_chord;
 
-    int quantity = scale->notes.size();
+    vector<Key *> scale_notes = scale->get_vector_of_notes();
+    int quantity = scale_notes.size();
     int count = 0;
 
-    new_chord = new MajorChord(font,"I",scale->notes[count],this->keyboard,1130,40);
+
+    new_chord = new MajorChord(font,"I",scale_notes[count],this->keyboard,1130,40);
     this->chords.push_back(new_chord);
     count++;
 
-    new_chord = new MinorChord(font,"ii",scale->notes[count],this->keyboard,1130,42+40);
+    new_chord = new MinorChord(font,"ii",scale_notes[count],this->keyboard,1130,42+40);
     this->chords.push_back(new_chord);
     count++;
 
-    new_chord = new MinorChord(font,"iii",scale->notes[count],this->keyboard,1130,44+80);
+    new_chord = new MinorChord(font,"iii",scale_notes[count],this->keyboard,1130,44+80);
     this->chords.push_back(new_chord);
     count++;
 
-    new_chord = new MajorChord(font,"IV",scale->notes[count],this->keyboard,1130,46+120);
+    new_chord = new MajorChord(font,"IV",scale_notes[count],this->keyboard,1130,46+120);
     this->chords.push_back(new_chord);
     count++;
 
-    new_chord = new MajorChord(font,"V",scale->notes[count],this->keyboard,1130,48+160);
+    new_chord = new MajorChord(font,"V",scale_notes[count],this->keyboard,1130,48+160);
     this->chords.push_back(new_chord);
     count++;
 
-    new_chord = new MinorChord(font,"vi",scale->notes[count],this->keyboard,1130,50+200);
+    new_chord = new MinorChord(font,"vi",scale_notes[count],this->keyboard,1130,50+200);
     this->chords.push_back(new_chord);
 }
 

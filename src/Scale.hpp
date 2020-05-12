@@ -10,9 +10,8 @@ using namespace std;
 
 class ScaleWindow :public sf::Drawable
 {
-public:
-    vector<Key*> notes;
 private:
+    vector<Key*> notes;
     sf::RectangleShape border;
 
     Keyboard * keyboard;
@@ -29,6 +28,7 @@ private:
     void set_title();
 public:
     ScaleWindow(Keyboard *, Key*, sf::Font&);
+    vector<Key *> get_vector_of_notes();
     void change_root(Key*);
     void light_up();
     void dark_down();
