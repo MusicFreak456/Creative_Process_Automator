@@ -11,6 +11,9 @@ private:
     sf::Text title;
     sf::Text note;
     sf::RectangleShape rect;
+private:
+    void change_string_pos(int,int);
+    void reset_string_pos();
 public:
     ActiveNoteBracket(sf::Font&,string);
 

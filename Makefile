@@ -1,4 +1,4 @@
-CPP = g++
+GPP = g++
 NAME = cpa
 LINKER_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 OBJ_DIR = obj
@@ -25,16 +25,16 @@ SRC_PATH = ./$(SRC_DIR)/
 #enjoy
 
 $(NAME): $(OBJ_DIR) $(OBJ)
-	$(CPP) $(OBJ_PATH)*.o $(LINKER_FLAGS) -o $(NAME)
+	$(GPP) $(OBJ_PATH)*.o $(LINKER_FLAGS) -o $(NAME)
 
 $(OBJ_DIR):
 	mkdir $(OBJ_DIR)
 
 $(OBJ_PATH)main.o: $(SRC_PATH)main.cpp
-	$(CPP) -c -o $@ $<
+	$(GPP) -c -o $@ $<
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.cpp $(SRC_PATH)%.hpp
-	$(CPP) -c -o $@ $<
+	$(GPP) -c -o $@ $<
 
 clean:
 	rm -rf $(OBJ_DIR)

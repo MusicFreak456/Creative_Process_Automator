@@ -14,9 +14,28 @@ font(font)
     this->border.setFillColor(sf::Color(255,255,255,5));
 }
 
+void ChordBracket::hovers_detection(sf::Vector2f mousepos)
+{
+    for(Chord* x: this->chords)
+    {
+        x->hovers_detection(mousepos);
+    }
+}
+void ChordBracket::mouse_pressed(sf::Vector2f mousepos)
+{
+    for(Chord* x: this->chords)
+    {
+        x->mouse_pressed(mousepos);
+    }
+}
+
 void ChordBracket::set_scale(ScaleBracket* scale)
 {
     this->scale = scale;
+    for(Chord* x: this->chords)
+    {
+        x->change_root();
+    }
     this->chords = vector<Chord*>();
     generate_chords(this->font,this->scale);
 }
@@ -63,13 +82,50 @@ void ChordBracket::draw(sf::RenderTarget& target,sf::RenderStates states) const
 }
 
 Chord::Chord(sf::Font& font,string name,Key* start_key,Keyboard * keyboard,int posx, int posy): 
-start_key(start_key)
+start_key(start_key),
+show_check_box("show",font)
 {
+    this->show_chord = false;
+
     this->border.setPosition(posx,posy);
     this->border.setSize(sf::Vector2f(500,40));
     this->border.setFillColor(sf::Color(255,255,255,10));
+
+    int checkbox_width = 100;
+    int checkbox_height = 40;
+
+    this->show_check_box.change_size(checkbox_width,checkbox_height);
+    this->show_check_box.move_position(posx+500-checkbox_width,posy);
  
     this->tiles.push_back(ChordBracketTile(font,name,posx+22,posy+2,true));
+}
+
+void Chord::change_root()
+{
+    this->dark_down();
+    this->show_check_box.uncheck();
+}
+
+void Chord::light_up()
+{
+    this->show_chord = true;
+    for(Key * k : this->keys)
+    {
+        k->in_chord();
+    }
+}
+void Chord::dark_down()
+{
+    this->show_chord = false;
+    for(Key * k : this->keys)
+    {
+        k->deactivate_chord();
+    }
+}
+
+bool Chord::is_shown()
+{
+    return  this->show_chord;
 }
 
 MajorChord::MajorChord(sf::Font& font,string name,Key * start_key,Keyboard* keyboard,int posx,int posy):
@@ -98,10 +154,30 @@ void MajorChord::generate(sf::Font& font,Key* start_key,Keyboard* keyboard,int s
 void Chord::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
     target.draw(this->border,states);
+    target.draw(this->show_check_box,states);
 
     for(const ChordBracketTile& x : this->tiles)
     {
         target.draw(x,states);
+    }
+}
+
+void Chord::hovers_detection(sf::Vector2f mousepos)
+{
+    this->show_check_box.hovers_detection(mousepos);
+}
+void Chord::mouse_pressed(sf::Vector2f mousepos)
+{
+    this->show_check_box.mouse_pressed(mousepos);
+    if(this->show_check_box.is_checked() && !this->show_chord)
+    {
+        this->show_chord = true;
+        this->light_up();
+    }
+    else if (!this->show_check_box.is_checked() && this->show_chord)
+    {
+        this->show_chord = false;
+        this->dark_down();
     }
 }
 

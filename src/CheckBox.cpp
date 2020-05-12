@@ -16,6 +16,11 @@ CheckBox::CheckBox(string title, sf::Font& font)
     this->ch_box.setPosition(10,13);
 }
 
+void CheckBox::change_size(int width,int height)
+{
+    this->border.setSize(sf::Vector2f(width,height));
+}
+
 void CheckBox::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
     target.draw(this->border,states);
@@ -59,4 +64,10 @@ void CheckBox::mouse_pressed(sf::Vector2f mouse_coords)
 bool CheckBox::is_checked()
 {
     return this->checked;
+}
+
+void CheckBox::uncheck()
+{
+    this->checked = false;
+    this->ch_box.setFillColor(sf::Color::White);
 }

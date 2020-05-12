@@ -84,7 +84,7 @@ void ScaleBracket::dark_down()
     for(Key * k : notes)
     {
         if(k!=root_key)
-        k->deactivate();
+        k->deactivate_scale();
     }
 }
 
