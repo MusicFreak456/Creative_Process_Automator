@@ -1,6 +1,6 @@
 # Creative Process Automator
 
-Program made for those who want to learn how to construct chords and chord progressions.Made as an objective programing course project on University of Wroclaw.
+Program made for those who want to learn how to construct chords and chord progressions. Made as a project for objective programing course on University of Wroclaw.
 
 Written in C++ with SFML 2.4 library.
 
