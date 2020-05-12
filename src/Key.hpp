@@ -18,20 +18,20 @@ protected:
     Key();
 public:
     virtual string get_note();
-    virtual float get_value();
-    virtual void set_note(string);
-    virtual void set_value(float);
-    virtual void in_scale()=0;
-    virtual void in_chord()=0;
+    float get_value();
+    void set_note(string);
+    void set_value(float);
+    void reset_color();
+    void deactivate_chord();
+    void deactivate_scale();
+    void set_root();
+    void unset_root();
+    bool is_root();
     virtual void highlight()= 0;
-    virtual void reset_color();
+    virtual void in_chord()=0;
+    virtual void in_scale()=0;
     virtual void activate()=0;
     virtual void deactivate()=0;
-    virtual void deactivate_chord();
-    virtual void deactivate_scale();
-    virtual void set_root();
-    virtual void unset_root();
-    virtual bool is_root();
 };
 
 class WhiteKey :public Key
