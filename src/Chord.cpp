@@ -46,36 +46,35 @@ void ChordWindow::generate_chords(sf::Font& font,ScaleWindow * scale)
 
     vector<Key *> scale_notes = scale->get_vector_of_notes();
     int quantity = scale_notes.size();
-    cout << quantity << endl;
     int count = 0;
 
 
-    new_chord = new MajorChord(font,"I",scale_notes[count],this->keyboard,1130,40);
+    new_chord = new MajorChord(font,"I",scale_notes[count],this->keyboard,&(this->chords),1130,40);
     this->chords.push_back(new_chord);
     count++;
 
     if(count == quantity) return;
-    new_chord = new MinorChord(font,"ii",scale_notes[count],this->keyboard,1130,42+40);
+    new_chord = new MinorChord(font,"ii",scale_notes[count],this->keyboard,&(this->chords),1130,42+40);
     this->chords.push_back(new_chord);
     count++;
 
     if(count == quantity) return;
-    new_chord = new MinorChord(font,"iii",scale_notes[count],this->keyboard,1130,44+80);
+    new_chord = new MinorChord(font,"iii",scale_notes[count],this->keyboard,&(this->chords),1130,44+80);
     this->chords.push_back(new_chord);
     count++;
 
     if(count == quantity) return;
-    new_chord = new MajorChord(font,"IV",scale_notes[count],this->keyboard,1130,46+120);
+    new_chord = new MajorChord(font,"IV",scale_notes[count],this->keyboard,&(this->chords),1130,46+120);
     this->chords.push_back(new_chord);
     count++;
 
     if(count == quantity) return;
-    new_chord = new MajorChord(font,"V",scale_notes[count],this->keyboard,1130,48+160);
+    new_chord = new MajorChord(font,"V",scale_notes[count],this->keyboard,&(this->chords),1130,48+160);
     this->chords.push_back(new_chord);
     count++;
 
     if(count == quantity) return;
-    new_chord = new MinorChord(font,"vi",scale_notes[count],this->keyboard,1130,50+200);
+    new_chord = new MinorChord(font,"vi",scale_notes[count],this->keyboard,&(this->chords),1130,50+200);
     this->chords.push_back(new_chord);
 }
 
@@ -89,9 +88,10 @@ void ChordWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
     }
 }
 
-Chord::Chord(sf::Font& font,string name,Key* start_key,Keyboard * keyboard,int posx, int posy): 
+Chord::Chord(sf::Font& font,string name,Key* start_key,Keyboard * keyboard,vector<Chord*>* all_chords,int posx, int posy): 
 start_key(start_key),
-show_check_box("show",font)
+show_check_box("show",font),
+all_chords(all_chords)
 {
     this->show_chord = false;
 
@@ -136,8 +136,8 @@ bool Chord::is_shown()
     return  this->show_chord;
 }
 
-MajorChord::MajorChord(sf::Font& font,string name,Key * start_key,Keyboard* keyboard,int posx,int posy):
-Chord(font,name,start_key,keyboard,posx,posy)
+MajorChord::MajorChord(sf::Font& font,string name,Key * start_key,Keyboard* keyboard,vector<Chord*>* all_chords,int posx,int posy):
+Chord(font,name,start_key,keyboard,all_chords,posx,posy)
 {
     this->generate(font,start_key,keyboard,posx+22+ChordWindowTile::width+2,posy+2);
 }
@@ -179,6 +179,10 @@ void Chord::mouse_pressed(sf::Vector2f mousepos)
     this->show_check_box.mouse_pressed(mousepos);
     if(this->show_check_box.is_checked() && !this->show_chord)
     {
+        for(Chord * x: *(this->all_chords))
+        {
+            if(x!=this)x->change_root();
+        }
         this->show_chord = true;
         this->light_up();
     }
@@ -189,8 +193,8 @@ void Chord::mouse_pressed(sf::Vector2f mousepos)
     }
 }
 
-MinorChord::MinorChord(sf::Font& font,string name,Key* start_key,Keyboard* keyboard,int posx,int posy):
-Chord(font,name,start_key,keyboard,posx,posy)
+MinorChord::MinorChord(sf::Font& font,string name,Key* start_key,Keyboard* keyboard,vector<Chord*>* all_chords,int posx,int posy):
+Chord(font,name,start_key,keyboard,all_chords,posx,posy)
 {
     this->generate(font,start_key,keyboard,posx+22+ChordWindowTile::width+2,posy+2);
 }

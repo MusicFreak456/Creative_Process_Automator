@@ -31,6 +31,7 @@ protected:
     sf::RectangleShape border;
     CheckBox show_check_box;
 
+    vector<Chord *> * all_chords;
     vector<Key*> keys;
     vector<ChordWindowTile> tiles;
 
@@ -39,7 +40,7 @@ protected:
 
     bool show_chord;
 public:
-    Chord(sf::Font&,string,Key*,Keyboard*,int, int);
+    Chord(sf::Font&,string,Key*,Keyboard*,vector<Chord*>*,int, int);
     void light_up();
     void dark_down();
     bool is_shown();
@@ -54,14 +55,14 @@ protected:
 class MajorChord :public Chord
 {
 public:
-    MajorChord(sf::Font&,string,Key*,Keyboard*,int,int);
+    MajorChord(sf::Font&,string,Key*,Keyboard*,vector<Chord*>*,int,int);
     virtual void generate(sf::Font&,Key*,Keyboard*,int,int);
 };
 
 class MinorChord :public Chord
 {
 public:
-    MinorChord(sf::Font&,string,Key*,Keyboard*,int,int);
+    MinorChord(sf::Font&,string,Key*,Keyboard*,vector<Chord*>*,int,int);
     virtual void generate(sf::Font&,Key*,Keyboard*,int,int);
 };
 
