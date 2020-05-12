@@ -2,7 +2,7 @@
 
 ControlPanel::ControlPanel(sf::Font& font, Key* root_note, Keyboard* keyboard): 
 root_note(root_note), 
-root_bracket(ActiveNoteBracket(font,root_note->get_note())),
+root_bracket(ActiveNoteWindow(font,root_note->get_note())),
 keyboard(keyboard),
 scale(keyboard,root_note,font),
 chord_bracket(keyboard,font),

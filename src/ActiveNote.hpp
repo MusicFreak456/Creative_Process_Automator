@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class ActiveNoteBracket :public sf::Drawable
+class ActiveNoteWindow :public sf::Drawable
 {
 private:
     sf::Text title;
@@ -15,7 +15,7 @@ private:
     void change_string_pos(int,int);
     void reset_string_pos();
 public:
-    ActiveNoteBracket(sf::Font&,string);
+    ActiveNoteWindow(sf::Font&,string);
 
     void set_note(string);
 

@@ -1,6 +1,6 @@
 #include"Scale.hpp"
 
-ScaleBracket::ScaleBracket(Keyboard * keyboard, Key * root_key ,sf::Font & font): keyboard(keyboard), root_key(root_key), ch_box("Show scale",font)
+ScaleWindow::ScaleWindow(Keyboard * keyboard, Key * root_key ,sf::Font & font): keyboard(keyboard), root_key(root_key), ch_box("Show scale",font)
 {
     this->notes.push_back(this->root_key);
 
@@ -24,7 +24,7 @@ ScaleBracket::ScaleBracket(Keyboard * keyboard, Key * root_key ,sf::Font & font)
     this->border.setFillColor(sf::Color(255,255,255,10));
 }
 
-void ScaleBracket::draw(sf::RenderTarget& target,sf::RenderStates states) const
+void ScaleWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
     target.draw(this->border,states);
     target.draw(this->title,states);
@@ -32,12 +32,12 @@ void ScaleBracket::draw(sf::RenderTarget& target,sf::RenderStates states) const
     target.draw(this->ch_box,states);
 }
 
-void ScaleBracket::set_title()
+void ScaleWindow::set_title()
 {
     this->title.setString(root_key->get_note() + " major scale: ");
 }
 
-void ScaleBracket::generate_scale()
+void ScaleWindow::generate_scale()
 {
     int root_value = root_key->get_value();
     if(root_value < Keyboard::number_of_keys - 1)this->notes.push_back( keyboard->find_key(root_value + 2));
@@ -57,7 +57,7 @@ void ScaleBracket::generate_scale()
     this->set_title();
 }
 
-void ScaleBracket::change_root(Key* new_root)
+void ScaleWindow::change_root(Key* new_root)
 {
     this->dark_down();
     this->root_key = new_root;
@@ -71,7 +71,7 @@ void ScaleBracket::change_root(Key* new_root)
     }
 }
 
-void ScaleBracket::light_up()
+void ScaleWindow::light_up()
 {
     for(Key * k : notes)
     {
@@ -79,7 +79,7 @@ void ScaleBracket::light_up()
         else k->activate();
     }
 }
-void ScaleBracket::dark_down()
+void ScaleWindow::dark_down()
 {
     for(Key * k : notes)
     {
@@ -88,11 +88,11 @@ void ScaleBracket::dark_down()
     }
 }
 
-void ScaleBracket::hovers_detection(sf::Vector2f mouse_coords)
+void ScaleWindow::hovers_detection(sf::Vector2f mouse_coords)
 {
     this->ch_box.hovers_detection(mouse_coords);
 }
-void ScaleBracket::mouse_pressed(sf::Vector2f mouse_coords)
+void ScaleWindow::mouse_pressed(sf::Vector2f mouse_coords)
 {
     this->ch_box.mouse_pressed(mouse_coords);
     if(this->ch_box.is_checked() && !this->show_scale)

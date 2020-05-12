@@ -4,13 +4,13 @@
 
 using namespace std;
 
-class VolumeBracket :public sf::Drawable
+class VolumeWindow :public sf::Drawable
 {
 private:
     sf::RectangleShape border;
     sf::Text title;
 public:
-    VolumeBracket(sf::Font&);
+    VolumeWindow(sf::Font&);
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
 };

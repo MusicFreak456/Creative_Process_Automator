@@ -1,6 +1,6 @@
 #ifndef CONTROLPANEL_HPP
 #define CONTROLPANEL_HPP
-#include"ActiveNoteBracket.hpp"
+#include"ActiveNote.hpp"
 #include"Keyboard.hpp"
 #include"Scale.hpp"
 #include"Chord.hpp"
@@ -10,10 +10,10 @@
 class ControlPanel :public sf::Drawable
 {
 private:
-    ActiveNoteBracket root_bracket;
-    ChordBracket chord_bracket;
-    VolumeBracket volume_bracket;
-    ScaleBracket scale;
+    ActiveNoteWindow root_bracket;
+    ChordWindow chord_bracket;
+    VolumeWindow volume_bracket;
+    ScaleWindow scale;
     Key* root_note;
     Keyboard* keyboard;
 

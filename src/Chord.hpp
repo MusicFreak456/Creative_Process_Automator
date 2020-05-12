@@ -10,7 +10,7 @@
 
 using namespace std;
 
-class ChordBracketTile :public sf::Drawable
+class ChordWindowTile :public sf::Drawable
 {
 public:
     static const int width = 55;
@@ -20,7 +20,7 @@ private:
 
     sf::Text text;
 public:
-    ChordBracketTile(sf::Font&,string,int,int,bool);
+    ChordWindowTile(sf::Font&,string,int,int,bool);
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
 };
@@ -32,7 +32,7 @@ protected:
     CheckBox show_check_box;
 
     vector<Key*> keys;
-    vector<ChordBracketTile> tiles;
+    vector<ChordWindowTile> tiles;
 
     string name;
     Key * start_key;
@@ -66,7 +66,7 @@ public:
 };
 
 
-class ChordBracket :public sf::Drawable
+class ChordWindow :public sf::Drawable
 {
 private:
 
@@ -74,18 +74,18 @@ private:
     sf::Text title;
     sf::Font font;
 
-    ScaleBracket * scale;
+    ScaleWindow * scale;
     Keyboard * keyboard;
     
     vector<Chord*> chords;
 public:
-    ChordBracket(Keyboard*, sf::Font&);
+    ChordWindow(Keyboard*, sf::Font&);
     void move_position(int,int);
-    void set_scale(ScaleBracket*);
+    void set_scale(ScaleWindow*);
     void hovers_detection(sf::Vector2f);
     void mouse_pressed(sf::Vector2f);
 private:
-    void generate_chords(sf::Font&, ScaleBracket*);
+    void generate_chords(sf::Font&, ScaleWindow*);
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
 };

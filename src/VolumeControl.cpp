@@ -1,6 +1,6 @@
 #include"VolumeControl.hpp"
 
-VolumeBracket::VolumeBracket(sf::Font& font)
+VolumeWindow::VolumeWindow(sf::Font& font)
 {
     this->title.setFont(font);
     this->title.setCharacterSize(24);
@@ -12,7 +12,7 @@ VolumeBracket::VolumeBracket(sf::Font& font)
     this->border.setFillColor(sf::Color(255,255,255,5));
 }
 
-void VolumeBracket::draw(sf::RenderTarget& target,sf::RenderStates states) const
+void VolumeWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
     target.draw(this->border,states);
     target.draw(this->title,states);

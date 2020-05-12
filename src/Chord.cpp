@@ -1,6 +1,6 @@
 #include"Chord.hpp"
 
-ChordBracket::ChordBracket(Keyboard * keyboard ,sf::Font& font): 
+ChordWindow::ChordWindow(Keyboard * keyboard ,sf::Font& font): 
 keyboard(keyboard),
 font(font)
 {
@@ -14,14 +14,14 @@ font(font)
     this->border.setFillColor(sf::Color(255,255,255,5));
 }
 
-void ChordBracket::hovers_detection(sf::Vector2f mousepos)
+void ChordWindow::hovers_detection(sf::Vector2f mousepos)
 {
     for(Chord* x: this->chords)
     {
         x->hovers_detection(mousepos);
     }
 }
-void ChordBracket::mouse_pressed(sf::Vector2f mousepos)
+void ChordWindow::mouse_pressed(sf::Vector2f mousepos)
 {
     for(Chord* x: this->chords)
     {
@@ -29,7 +29,7 @@ void ChordBracket::mouse_pressed(sf::Vector2f mousepos)
     }
 }
 
-void ChordBracket::set_scale(ScaleBracket* scale)
+void ChordWindow::set_scale(ScaleWindow* scale)
 {
     this->scale = scale;
     for(Chord* x: this->chords)
@@ -40,7 +40,7 @@ void ChordBracket::set_scale(ScaleBracket* scale)
     generate_chords(this->font,this->scale);
 }
 
-void ChordBracket::generate_chords(sf::Font& font,ScaleBracket * scale)
+void ChordWindow::generate_chords(sf::Font& font,ScaleWindow * scale)
 {
     Chord * new_chord;
 
@@ -71,7 +71,7 @@ void ChordBracket::generate_chords(sf::Font& font,ScaleBracket * scale)
     this->chords.push_back(new_chord);
 }
 
-void ChordBracket::draw(sf::RenderTarget& target,sf::RenderStates states) const
+void ChordWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
     target.draw(this->border,states);
     target.draw(this->title,states);
@@ -97,7 +97,7 @@ show_check_box("show",font)
     this->show_check_box.change_size(checkbox_width,checkbox_height);
     this->show_check_box.move_position(posx+500-checkbox_width,posy);
  
-    this->tiles.push_back(ChordBracketTile(font,name,posx+22,posy+2,true));
+    this->tiles.push_back(ChordWindowTile(font,name,posx+22,posy+2,true));
 }
 
 void Chord::change_root()
@@ -131,24 +131,24 @@ bool Chord::is_shown()
 MajorChord::MajorChord(sf::Font& font,string name,Key * start_key,Keyboard* keyboard,int posx,int posy):
 Chord(font,name,start_key,keyboard,posx,posy)
 {
-    this->generate(font,start_key,keyboard,posx+22+ChordBracketTile::width+2,posy+2);
+    this->generate(font,start_key,keyboard,posx+22+ChordWindowTile::width+2,posy+2);
 }
 
 void MajorChord::generate(sf::Font& font,Key* start_key,Keyboard* keyboard,int start_posx, int start_posy)
 {
     this->keys.push_back(start_key);
     int start_key_value = start_key->get_value();
-    this->tiles.push_back(ChordBracketTile(font,start_key->get_note(),start_posx,start_posy,false));
+    this->tiles.push_back(ChordWindowTile(font,start_key->get_note(),start_posx,start_posy,false));
 
     Key * next = keyboard->find_key(start_key_value+4);
     if(next == nullptr) return;
     this->keys.push_back(next);
-    this->tiles.push_back(ChordBracketTile(font,next->get_note(),start_posx + ChordBracketTile::width+2,start_posy,false));
+    this->tiles.push_back(ChordWindowTile(font,next->get_note(),start_posx + ChordWindowTile::width+2,start_posy,false));
 
     next = keyboard->find_key(start_key_value+7);
     if(next == nullptr) return;
     this->keys.push_back(next);
-    this->tiles.push_back(ChordBracketTile(font,next->get_note(),start_posx + ChordBracketTile::width*2+4,start_posy,false));
+    this->tiles.push_back(ChordWindowTile(font,next->get_note(),start_posx + ChordWindowTile::width*2+4,start_posy,false));
 }
 
 void Chord::draw(sf::RenderTarget& target,sf::RenderStates states) const
@@ -156,7 +156,7 @@ void Chord::draw(sf::RenderTarget& target,sf::RenderStates states) const
     target.draw(this->border,states);
     target.draw(this->show_check_box,states);
 
-    for(const ChordBracketTile& x : this->tiles)
+    for(const ChordWindowTile& x : this->tiles)
     {
         target.draw(x,states);
     }
@@ -184,27 +184,27 @@ void Chord::mouse_pressed(sf::Vector2f mousepos)
 MinorChord::MinorChord(sf::Font& font,string name,Key* start_key,Keyboard* keyboard,int posx,int posy):
 Chord(font,name,start_key,keyboard,posx,posy)
 {
-    this->generate(font,start_key,keyboard,posx+22+ChordBracketTile::width+2,posy+2);
+    this->generate(font,start_key,keyboard,posx+22+ChordWindowTile::width+2,posy+2);
 }
 
 void MinorChord::generate(sf::Font& font,Key* start_key,Keyboard * keyboard,int start_posx, int start_posy)
 {
     this->keys.push_back(start_key);
     int start_key_value = start_key->get_value();
-    this->tiles.push_back(ChordBracketTile(font,start_key->get_note(),start_posx,start_posy,false));
+    this->tiles.push_back(ChordWindowTile(font,start_key->get_note(),start_posx,start_posy,false));
 
     Key * next = keyboard->find_key(start_key_value+3);
     if(next == nullptr) return;
     this->keys.push_back(next);
-    this->tiles.push_back(ChordBracketTile(font,next->get_note(),start_posx + ChordBracketTile::width+2,start_posy,false));
+    this->tiles.push_back(ChordWindowTile(font,next->get_note(),start_posx + ChordWindowTile::width+2,start_posy,false));
 
     next = keyboard->find_key(start_key_value+7);
     if(next == nullptr) return;
     this->keys.push_back(next);
-    this->tiles.push_back(ChordBracketTile(font,next->get_note(),start_posx + ChordBracketTile::width*2+4,start_posy,false));
+    this->tiles.push_back(ChordWindowTile(font,next->get_note(),start_posx + ChordWindowTile::width*2+4,start_posy,false));
 }
 
-ChordBracketTile::ChordBracketTile(sf::Font& font,string label,int posx, int posy, bool opacity)
+ChordWindowTile::ChordWindowTile(sf::Font& font,string label,int posx, int posy, bool opacity)
 {
     this->border.setPosition(posx,posy);
     this->border.setSize(sf::Vector2f(this->width,this->height));
@@ -216,7 +216,7 @@ ChordBracketTile::ChordBracketTile(sf::Font& font,string label,int posx, int pos
     this->text.setCharacterSize(24);
 }
 
-void ChordBracketTile::draw(sf::RenderTarget& target,sf::RenderStates states) const
+void ChordWindowTile::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
     target.draw(this->border,states);
     target.draw(this->text,states);

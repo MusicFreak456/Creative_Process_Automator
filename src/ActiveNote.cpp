@@ -1,6 +1,6 @@
-#include"ActiveNoteBracket.hpp"
+#include"ActiveNote.hpp"
 
-ActiveNoteBracket::ActiveNoteBracket(sf::Font& font,string note)
+ActiveNoteWindow::ActiveNoteWindow(sf::Font& font,string note)
 {
     this->title.setString("Key");
     this->note.setString(note);
@@ -15,23 +15,23 @@ ActiveNoteBracket::ActiveNoteBracket(sf::Font& font,string note)
     this->rect.setFillColor(sf::Color(255,255,255,10));
 }
 
-void ActiveNoteBracket::draw(sf::RenderTarget& target,sf::RenderStates states) const
+void ActiveNoteWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
     target.draw(this->rect);
     target.draw(this->note);
     target.draw(this->title);
 }
 
-void ActiveNoteBracket::change_string_pos(int x,int y)
+void ActiveNoteWindow::change_string_pos(int x,int y)
 {
     this->note.setPosition(x,y);
 }
-void ActiveNoteBracket::reset_string_pos()
+void ActiveNoteWindow::reset_string_pos()
 {
     this->note.setPosition(95,90);
 }
 
-void ActiveNoteBracket::set_note(string note)
+void ActiveNoteWindow::set_note(string note)
 {
     this->note.setString(note);
     if(note.length() == 2)

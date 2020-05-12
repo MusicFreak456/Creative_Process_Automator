@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class ScaleBracket :public sf::Drawable
+class ScaleWindow :public sf::Drawable
 {
 public:
     vector<Key*> notes;
@@ -28,7 +28,7 @@ private:
     void generate_scale();
     void set_title();
 public:
-    ScaleBracket(Keyboard *, Key*, sf::Font&);
+    ScaleWindow(Keyboard *, Key*, sf::Font&);
     void change_root(Key*);
     void light_up();
     void dark_down();

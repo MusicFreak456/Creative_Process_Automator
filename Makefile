@@ -6,12 +6,13 @@ SRC_DIR = src
 OBJ = $(OBJ_DIR)/main.o \
 	$(OBJ_DIR)/Keyboard.o \
 	$(OBJ_DIR)/Key.o \
-	$(OBJ_DIR)/ActiveNoteBracket.o \
+	$(OBJ_DIR)/ActiveNote.o \
 	$(OBJ_DIR)/ControlPanel.o \
 	$(OBJ_DIR)/Scale.o \
 	$(OBJ_DIR)/CheckBox.o \
 	$(OBJ_DIR)/Chord.o \
-	$(OBJ_DIR)/VolumeControl.o
+	$(OBJ_DIR)/VolumeControl.o \
+	$(OBJ_DIR)/Progression.o
 OBJ_PATH = ./$(OBJ_DIR)/
 SRC_PATH = ./$(SRC_DIR)/
 
