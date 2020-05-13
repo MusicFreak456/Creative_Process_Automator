@@ -1,6 +1,6 @@
 GPP = g++
 NAME = cpa
-LINKER_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+LINKER_FLAGS = -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 OBJ_DIR = obj
 SRC_DIR = src
 OBJ = $(OBJ_DIR)/main.o \

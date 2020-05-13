@@ -39,6 +39,12 @@ bool Key::is_root()
     return this->root;
 }
 
+void Key::play()
+{
+    this->sound.setBuffer(this->sound_buffer);
+    this->sound.play();
+}
+
 void Key::set_note(string note)
 {
     this->note = note;
@@ -50,6 +56,10 @@ string Key::get_note()
 void Key::set_value(float value)
 {
     this->value=value;
+    string file = "./sound_samples/" + to_string((int)value - 1) + ".wav";
+    if(!this->sound_buffer.loadFromFile(file))cout << file + " failed to load" << endl;
+    this->sound.setBuffer(this->sound_buffer);
+
 }
 float Key::get_value()
 {

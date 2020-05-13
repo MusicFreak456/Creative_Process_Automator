@@ -1,6 +1,8 @@
 #ifndef KEY_HPP
 #define KEY_HPP
+#include<iostream>
 #include<SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 
 using namespace std;
 
@@ -13,6 +15,8 @@ protected:
     bool scale;
     bool chord;
     sf::Color default_color;
+    sf::SoundBuffer sound_buffer;
+    sf::Sound sound;
     bool root;
 protected:
     Key();
@@ -27,6 +31,7 @@ public:
     void set_root();
     void unset_root();
     bool is_root();
+    void play();
     virtual void highlight()= 0;
     virtual void in_chord()=0;
     virtual void in_scale()=0;

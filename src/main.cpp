@@ -12,6 +12,12 @@ int main()
     sf::RenderWindow main_window(sf::VideoMode(1760,500),"Creative Process Automator Demo",sf::Style::Close);
     main_window.setFramerateLimit(60);
 
+    // sf::SoundBuffer new_sb;
+    // new_sb.loadFromFile("./sound_samples/30.wav");
+    // sf::Sound sound;
+    // sound.setBuffer(new_sb);
+    // sound.play();
+
     sf::Font montserrat_black;
     if(montserrat_black.loadFromFile("fonts/Montserrat-Black.ttf"))
     {

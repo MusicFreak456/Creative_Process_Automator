@@ -27,6 +27,7 @@ void ControlPanel::set_root(Key* root_note)
     this->root_note->unset_root();
     this->root_note = root_note;
     this->root_note->set_root();
+    this->root_note->play();
     this->root_window.set_note(root_note->get_note());
     this->scale.change_root(root_note);
     this->chord_window.set_scale(&(this->scale));
