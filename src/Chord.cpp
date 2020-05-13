@@ -170,6 +170,14 @@ void Chord::draw(sf::RenderTarget& target,sf::RenderStates states) const
     }
 }
 
+void Chord::play()
+{
+    for(Key * x : this->keys)
+    {
+        x->play();
+    }
+}
+
 void Chord::hovers_detection(sf::Vector2f mousepos)
 {
     this->show_check_box.hovers_detection(mousepos);
@@ -185,12 +193,14 @@ void Chord::mouse_pressed(sf::Vector2f mousepos)
         }
         this->show_chord = true;
         this->light_up();
+        this->play();
     }
     else if (!this->show_check_box.is_checked() && this->show_chord)
     {
         this->show_chord = false;
         this->dark_down();
     }
+    
 }
 
 MinorChord::MinorChord(sf::Font& font,string name,Key* start_key,Keyboard* keyboard,vector<Chord*>* all_chords,int posx,int posy):

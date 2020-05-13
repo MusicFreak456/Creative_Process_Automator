@@ -45,6 +45,7 @@ public:
     void dark_down();
     bool is_shown();
     void change_root();
+    void play();
     void hovers_detection(sf::Vector2f);
     void mouse_pressed(sf::Vector2f);
     virtual void generate(sf::Font&,Key*,Keyboard*,int,int) =0;
