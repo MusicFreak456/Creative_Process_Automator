@@ -1,15 +1,14 @@
 #include"Scale.hpp"
 
-ScaleWindow::ScaleWindow(Keyboard * keyboard, Key * root_key ,sf::Font & font): keyboard(keyboard), root_key(root_key), ch_box("Show scale",font)
+ScaleWindow::ScaleWindow(Keyboard * keyboard, Key * root_key ,sf::Font & font): 
+scale(keyboard,root_key), 
+ch_box("Show scale",font)
 {
-    this->notes.push_back(this->root_key);
+    this->ch_box.move_position(950,0);
 
     this->show_scale = false;
 
-    this->ch_box.move_position(950,0);
-
     this->title.setFont(font);
-    this->set_title();
     this->title.setPosition(304,0);
     this->title.setCharacterSize(24);
 
@@ -17,11 +16,18 @@ ScaleWindow::ScaleWindow(Keyboard * keyboard, Key * root_key ,sf::Font & font): 
     this->string_repr.setPosition(340,50);
     this->string_repr.setCharacterSize(40);
 
-    this->generate_scale();
+    this->string_repr.setString(scale.generate_scale());
+    this->set_title();
     
     this->border.setPosition(304,0);
     this->border.setSize(sf::Vector2f(796,146));
     this->border.setFillColor(sf::Color(255,255,255,5));
+}
+
+Scale::Scale(Keyboard * keyboard, Key * root_key): keyboard(keyboard), root_key(root_key)
+{
+    this->notes.push_back(this->root_key);
+    
 }
 
 void ScaleWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
@@ -34,10 +40,15 @@ void ScaleWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
 
 void ScaleWindow::set_title()
 {
-    this->title.setString(root_key->get_note() + " major scale: ");
+    this->title.setString(this->scale.set_title());
 }
 
-void ScaleWindow::generate_scale()
+string Scale::set_title()
+{
+    return root_key->get_note() + " major scale: ";
+}
+
+string Scale::generate_scale()
 {
     int root_value = root_key->get_value();
     if(root_value < Keyboard::number_of_keys - 1)this->notes.push_back( keyboard->find_key(root_value + 2));
@@ -52,26 +63,39 @@ void ScaleWindow::generate_scale()
     {
         repr += k->get_note() + "   ";
     }
-    this->string_repr.setString(repr);
 
-    this->set_title();
+    return repr;    
 }
 
 void ScaleWindow::change_root(Key* new_root)
 {
-    this->dark_down();
-    this->root_key = new_root;
-    this->root_key->activate();
-    this->notes.clear();
-    this->notes.push_back(root_key);
-    this->generate_scale();
+    this->string_repr.setString(scale.change_root(new_root));
+    this->set_title();
     if(this->show_scale)
     {
         this->light_up();
     }
 }
 
+string Scale::change_root(Key* new_root)
+{
+    string to_return;
+    this->dark_down();
+    this->root_key = new_root;
+    this->root_key->activate();
+    this->notes.clear();
+    this->notes.push_back(root_key);
+    to_return = this->generate_scale();
+    
+    return to_return;
+}
+
 void ScaleWindow::light_up()
+{
+    this->scale.light_up();
+}
+
+void Scale::light_up()
 {
     for(Key * k : notes)
     {
@@ -79,7 +103,13 @@ void ScaleWindow::light_up()
         else k->activate();
     }
 }
+
 void ScaleWindow::dark_down()
+{
+    scale.dark_down();
+}
+
+void Scale::dark_down()
 {
     for(Key * k : notes)
     {
@@ -108,6 +138,11 @@ void ScaleWindow::mouse_pressed(sf::Vector2f mouse_coords)
 }
 
 vector<Key *> ScaleWindow::get_vector_of_notes()
+{
+    return scale.get_vector_of_notes();
+}
+
+vector<Key *> Scale::get_vector_of_notes()
 {
     return this->notes;
 }
