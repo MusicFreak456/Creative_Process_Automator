@@ -46,6 +46,7 @@ void VolumeWindow::hovers_detection(sf::Vector2f mouse_pos)
         this->keyboard->change_volume(this->curr_value);
         this->set_value_str();
     }
+    
 }
 
 void VolumeWindow::mouse_pressed(sf::Vector2f mouse_pos)
