@@ -45,6 +45,11 @@ void Key::play()
     this->sound.play();
 }
 
+void Key::change_volume(float value)
+{
+    this->sound.setVolume(value);
+}
+
 void Key::set_note(string note)
 {
     this->note = note;

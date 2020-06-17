@@ -25,6 +25,7 @@ public:
     float get_value();
     void set_note(string);
     void set_value(float);
+    void change_volume(float);
     void reset_color();
     void deactivate_chord();
     void deactivate_scale();

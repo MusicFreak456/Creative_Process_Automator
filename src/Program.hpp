@@ -1,3 +1,6 @@
+#ifndef PROGRAM_HPP
+#define PROGRAM_HPP
+
 #include<SFML/System.hpp>
 #include<SFML/Graphics.hpp>
 #include<iostream>
@@ -7,8 +10,9 @@
 
 class Program
 {
-private:
+public:
     sf::RenderWindow main_window;
+private:
     sf::Font montserrat_regular;
     sf::Color background;
 
@@ -31,3 +35,5 @@ public:
     Program(sf::Font &);
     void run();
 };
+
+#endif

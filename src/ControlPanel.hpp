@@ -14,7 +14,7 @@ private:
     ActiveNoteWindow root_window;
     ChordWindow chord_window;
     VolumeWindow volume_window;
-    ScaleWindow scale;
+    ScaleWindow scale_window;
     ProgressionWindow progression_window;
 
     Key* root_note;

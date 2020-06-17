@@ -97,3 +97,16 @@ Key * Keyboard::find_key(float index)
     }
     return nullptr;
 }
+
+void Keyboard::change_volume(float value)
+{
+    for(WhiteKey& x : this->white_keys)
+    {
+        x.change_volume(value);
+    }
+
+    for(BlackKey& x : this->black_keys)
+    {
+        x.change_volume(value);
+    }
+}

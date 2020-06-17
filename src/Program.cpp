@@ -9,6 +9,7 @@ activated_key(keyboard.activate_init_white_key(23)),
 hovered_key(nullptr),
 ctrl_panel(montserrat_regular,activated_key,&keyboard)
 {
+    this->main_window.setFramerateLimit(30);
     this->keyboard.move_position(0,this->main_window.getSize().y - WhiteKey::Height);
 
     this->hovering_over_key = false;
@@ -16,7 +17,7 @@ ctrl_panel(montserrat_regular,activated_key,&keyboard)
 
 void Program::check_hovering()
 {
-    this-> mouse_coords = main_window.mapPixelToCoords(sf::Mouse::getPosition(main_window));
+    this->mouse_coords = main_window.mapPixelToCoords(sf::Mouse::getPosition(main_window));
     ctrl_panel.hovers_detection(mouse_coords);
     this->new_hovered = keyboard.mouse_over(mouse_coords);
     if(new_hovered!=hovered_key)
@@ -41,7 +42,7 @@ void Program::check_events()
             main_window.close();
         }
         
-        if(event.type == sf::Event::MouseButtonPressed)
+        else if(event.type == sf::Event::MouseButtonPressed)
         {
             if(event.mouseButton.button == sf::Mouse::Left)
             {
@@ -56,7 +57,6 @@ void Program::check_events()
                 {
                     ctrl_panel.mouse_pressed(mouse_coords);
                 }
-                
             }
         }
     }

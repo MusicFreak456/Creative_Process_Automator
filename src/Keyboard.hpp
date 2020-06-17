@@ -22,6 +22,7 @@ public:
     Key* mouse_over(sf::Vector2f);
     Key* activate_init_white_key(int);
     Key* find_key(float index);
+    void change_volume(float);
 
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;

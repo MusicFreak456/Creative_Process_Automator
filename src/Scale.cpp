@@ -51,11 +51,11 @@ string Scale::set_title()
 string Scale::generate_scale()
 {
     int root_value = root_key->get_value();
-    if(root_value < Keyboard::number_of_keys - 1)this->notes.push_back( keyboard->find_key(root_value + 2));
-    if(root_value < Keyboard::number_of_keys - 3)this->notes.push_back( keyboard->find_key(root_value + 4));
-    if(root_value < Keyboard::number_of_keys - 4)this->notes.push_back( keyboard->find_key(root_value + 5));
-    if(root_value < Keyboard::number_of_keys - 6)this->notes.push_back( keyboard->find_key(root_value + 7));
-    if(root_value < Keyboard::number_of_keys - 8)this->notes.push_back( keyboard->find_key(root_value + 9));
+    if(root_value < Keyboard::number_of_keys - 1 )this->notes.push_back( keyboard->find_key(root_value + 2));
+    if(root_value < Keyboard::number_of_keys - 3 )this->notes.push_back( keyboard->find_key(root_value + 4));
+    if(root_value < Keyboard::number_of_keys - 4 )this->notes.push_back( keyboard->find_key(root_value + 5));
+    if(root_value < Keyboard::number_of_keys - 6 )this->notes.push_back( keyboard->find_key(root_value + 7));
+    if(root_value < Keyboard::number_of_keys - 8 )this->notes.push_back( keyboard->find_key(root_value + 9));
     if(root_value < Keyboard::number_of_keys - 10)this->notes.push_back( keyboard->find_key(root_value + 11));
 
     string repr = "";
