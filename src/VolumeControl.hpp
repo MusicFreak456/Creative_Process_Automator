@@ -20,6 +20,9 @@ private:
     
 public:
     VolumeWindow(sf::Font&, Keyboard*, int);
+    void hovers_detection(sf::Vector2f);
+    void mouse_pressed(sf::Vector2f);
+    void mouse_released();
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
 };

@@ -24,3 +24,17 @@ void VolumeWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
     target.draw(this->slider,states);
 }
 
+void VolumeWindow::hovers_detection(sf::Vector2f mouse_pos)
+{
+    this->slider.hovers_detection(mouse_pos);
+}
+
+void VolumeWindow::mouse_pressed(sf::Vector2f mouse_pos)
+{
+    this->slider.mouse_pressed(mouse_pos);
+}
+
+void VolumeWindow::mouse_released()
+{
+    this->slider.mouse_released();
+}

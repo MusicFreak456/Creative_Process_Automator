@@ -37,10 +37,17 @@ void ControlPanel::hovers_detection(sf::Vector2f mouse_coords)
 {
     this->scale_window.hovers_detection(mouse_coords);
     this->chord_window.hovers_detection(mouse_coords);
+    this->volume_window.hovers_detection(mouse_coords);
 }
 
 void ControlPanel::mouse_pressed(sf::Vector2f mouse_coords)
 {
     this->scale_window.mouse_pressed(mouse_coords);
     this->chord_window.mouse_pressed(mouse_coords);
+    this->volume_window.mouse_pressed(mouse_coords);
+}
+
+void ControlPanel::mouse_released()
+{
+    this->volume_window.mouse_released();
 }
