@@ -1,6 +1,7 @@
 #ifndef VOLUMECONTROL_HPP
 #define VOLUMECONTROL_HPP
 #include<SFML/Graphics.hpp>
+#include<iostream>
 
 #include"Slider.hpp"
 #include"Keyboard.hpp"

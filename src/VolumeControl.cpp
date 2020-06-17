@@ -41,16 +41,33 @@ void VolumeWindow::hovers_detection(sf::Vector2f mouse_pos)
     int prev_val = this->curr_value;
     this->slider.hovers_detection(mouse_pos);
     this->curr_value = this->slider.get_value();
-    if(curr_value!= prev_val) this->set_value_str();
+    if(curr_value!= prev_val)
+    {
+        this->keyboard->change_volume(this->curr_value);
+        this->set_value_str();
+    }
 }
 
 void VolumeWindow::mouse_pressed(sf::Vector2f mouse_pos)
 {
+    int prev_val = this->curr_value;
     this->slider.mouse_pressed(mouse_pos);
+    this->curr_value = this->slider.get_value();
+    if(curr_value!= prev_val)
+    {
+        this->keyboard->change_volume(this->curr_value);
+        this->set_value_str();
+    }
 }
 
 void VolumeWindow::mouse_released()
 {
-
+    int prev_val = this->curr_value;
     this->slider.mouse_released();
+    this->curr_value = this->slider.get_value();
+    if(curr_value!= prev_val) 
+    {
+        this->keyboard->change_volume(this->curr_value);
+        this->set_value_str();
+    }
 }
