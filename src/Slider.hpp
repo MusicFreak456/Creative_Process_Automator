@@ -19,10 +19,11 @@ private:
     void track();
 public:
     VerticalSlider(int, int, int, sf::Font&);
-    int move_slider(int);
+    void move_slider(int);
     void hovers_detection(sf::Vector2f);
     void mouse_pressed(sf::Vector2f);
     void mouse_released();
+    int get_value();
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
 };

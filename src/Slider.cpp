@@ -21,7 +21,7 @@ mouse_pos(sf::Mouse::getPosition())
     this->slider.setPosition(x-4,y+height/2-4);
 }
 
-int VerticalSlider::move_slider(int value)
+void VerticalSlider::move_slider(int value)
 {
 
     this->slider.move(sf::Vector2f(0,value));
@@ -40,8 +40,6 @@ int VerticalSlider::move_slider(int value)
         this->value = 0;
         this->slider.setPosition(this->slider.getPosition().x, this->path.getPosition().y + this->height);
     }
-
-    return this->value;
 
 }
 
@@ -76,10 +74,14 @@ void VerticalSlider::mouse_pressed(sf::Vector2f mouse_coords)
     {
         this->move_slider(mouse_coords.y - this->slider.getPosition().y);
     }
-    
 }
 
 void VerticalSlider::mouse_released()
 {
     this->is_tracked = false;
+}
+
+int VerticalSlider::get_value()
+{
+    return this->value;
 }

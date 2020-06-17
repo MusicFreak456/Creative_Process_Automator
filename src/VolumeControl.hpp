@@ -15,9 +15,10 @@ private:
     sf::Text proc_value;
     VerticalSlider slider;
 
-    int value;
+    int curr_value;
     Keyboard * keyboard;
     
+    void set_value_str();
 public:
     VolumeWindow(sf::Font&, Keyboard*, int);
     void hovers_detection(sf::Vector2f);
