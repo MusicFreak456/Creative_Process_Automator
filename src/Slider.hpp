@@ -3,6 +3,11 @@
 #include<SFML/Graphics.hpp>
 #include<iostream>
 
+/*!
+    \class VerticalSlider
+    \brief Implements vertical slider.
+*/
+
 class VerticalSlider :public sf::Drawable
 {
 private:

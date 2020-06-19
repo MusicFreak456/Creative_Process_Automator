@@ -8,6 +8,11 @@
 
 using namespace std;
 
+/*!
+    \class Scale
+    \brief Implements scale functionalities.
+*/
+
 class Scale
 {
 private:
@@ -26,6 +31,11 @@ public:
     void dark_down();
 
 };
+
+/*!
+    \class ScaleWindow
+    \brief Menages displaying scale
+*/
 
 class ScaleWindow :public sf::Drawable
 {

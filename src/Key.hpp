@@ -6,6 +6,14 @@
 
 using namespace std;
 
+/*!
+    \class Key
+    \brief Abstract class for keys.
+
+    Abstract class for single key of the keyboard. Implements most of their funtionalities,
+    except for some of them, that are specific to white or black keys.
+*/
+
 class Key :public sf::RectangleShape
 {
 protected:
@@ -40,6 +48,13 @@ public:
     virtual void deactivate()=0;
 };
 
+/*!
+    \class WhiteKey
+    \brief Class for white keys.
+
+    Implements all of functionalities of a white key.
+*/
+
 class WhiteKey :public Key
 {
 public:
@@ -53,6 +68,13 @@ public:
     void in_scale();
     void in_chord();
 };
+
+/*!
+    \class BlackKey
+    \brief Class for black keys.
+
+    Implements all of functionalities of a black key.
+*/
 
 class BlackKey :public Key
 {

@@ -8,6 +8,13 @@
 #include"Keyboard.hpp"
 #include"ControlPanel.hpp"
 
+/*!
+    \class Program
+    \brief Main program class.
+
+    Maneges main program loop.
+*/
+
 class Program
 {
 public:

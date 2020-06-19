@@ -7,6 +7,13 @@
 
 using namespace std;
 
+/*!
+    \class Keyboard
+    \brief Class for keyboard.
+
+    Creates and controls all of the keys.
+*/
+
 class Keyboard :public sf::Drawable
 {
 private:

@@ -10,6 +10,13 @@
 
 using namespace std;
 
+/*!
+    \class ChordWindowTile
+    \brief Small tile for displaying one of the notes.
+
+    Small tile created with given string. Used for displaynig series of notes from chord.
+*/
+
 class ChordWindowTile :public sf::Drawable
 {
 public:
@@ -24,6 +31,13 @@ public:
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
 };
+
+/*!
+    \class Chord
+    \brief Main abstract class for chords.
+
+    Implements most of the chord functionalities, except for generating, which is specific to different kinds of chords.
+*/
 
 class Chord :public sf::Drawable
 {
@@ -53,6 +67,13 @@ protected:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
 };
 
+/*!
+    \class MajorChord
+    \brief Class for major chords.
+
+    Implements generating major chords.
+*/
+
 class MajorChord :public Chord
 {
 public:
@@ -60,12 +81,26 @@ public:
     virtual void generate(sf::Font&,Key*,Keyboard*,int,int);
 };
 
+/*!
+    \class MinorChord
+    \brief Class for minor chords.
+
+    Implements generating minor chords.
+*/
+
 class MinorChord :public Chord
 {
 public:
     MinorChord(sf::Font&,string,Key*,Keyboard*,vector<Chord*>*,int,int);
     virtual void generate(sf::Font&,Key*,Keyboard*,int,int);
 };
+
+/*!
+    \class ChordWindow
+    \brief Class for displaying all chords.
+
+    Maneges displaying all chords in given scale.
+*/
 
 
 class ChordWindow :public sf::Drawable

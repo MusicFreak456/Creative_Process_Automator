@@ -8,6 +8,11 @@
 
 using namespace std;
 
+/*!
+    \class VolumeWindow
+    \brief Creates user interface for controling sound volume.
+*/
+
 class VolumeWindow :public sf::Drawable
 {
 private:

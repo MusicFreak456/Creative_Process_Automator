@@ -2,6 +2,12 @@
 #define PROGRESSION_HPP
 #include<SFML/Graphics.hpp>
 
+/*!
+    \class ProgressionWindow
+    \brief Work in progress
+*/
+
+
 class ProgressionWindow :public  sf::Drawable
 {
 private:

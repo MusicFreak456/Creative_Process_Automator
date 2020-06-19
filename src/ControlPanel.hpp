@@ -8,6 +8,13 @@
 #include"VolumeControl.hpp"
 #include<SFML/Graphics.hpp>
 
+/*!
+    \class ControlPanel
+    \brief Class which accumulates all windows.
+
+    One of the main classes. Sort of container for all windows in program.
+*/
+
 class ControlPanel :public sf::Drawable
 {
 private:

@@ -5,6 +5,13 @@
 
 using namespace std;
 
+/*!
+    \class CheckBox
+    \brief Menages all checkboxes.
+
+    Creates checkbox using given string and font.
+*/
+
 class CheckBox :public sf::Drawable
 {
 private:

@@ -2,8 +2,12 @@
 #define ACTIVENOTEBRACKET_HPP
 #include<SFML/Graphics.hpp>
 
-
 using namespace std;
+
+/*!
+    \class ActiveNoteWindow
+    \brief Maneges displaying current active note.
+*/
 
 class ActiveNoteWindow :public sf::Drawable
 {
