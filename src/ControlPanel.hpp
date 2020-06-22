@@ -6,6 +6,7 @@
 #include"Chord.hpp"
 #include"Progression.hpp"
 #include"VolumeControl.hpp"
+#include"Strategy.hpp"
 #include<SFML/Graphics.hpp>
 
 /*!
@@ -15,7 +16,7 @@
     One of the main classes. Sort of container for all windows and objects in program.
 */
 
-class ControlPanel :public sf::Drawable
+class ControlPanel :public sf::Drawable, public IClickableSFML
 {
 private:
     Key* root_note;

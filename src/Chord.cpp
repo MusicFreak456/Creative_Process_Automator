@@ -24,7 +24,7 @@ chords(chords)
 
     for(Chord * x: vector_of_all_chords)
     {
-        this->vector_of_sfml_chords.push_back(new ChordSFML(*x,font,this->vector_of_sfml_chords,x->posx,x->posy));
+        this->vector_of_sfml_chords.push_back(new ChordSFML(*x,font,this->vector_of_sfml_chords,x->get_posx(),x->get_posy()));
     }
 }
 
@@ -68,7 +68,7 @@ void ChordsSFMLWindow::set_scale(Scale * scale)
     this->vector_of_sfml_chords.clear();
     for(Chord * x: vector_of_all_chords)
     {
-        this->vector_of_sfml_chords.push_back(new ChordSFML(*x,font,this->vector_of_sfml_chords,x->posx,x->posy));
+        this->vector_of_sfml_chords.push_back(new ChordSFML(*x,font,this->vector_of_sfml_chords,x->get_posx(),x->get_posy()));
     }
 }
 
@@ -129,7 +129,7 @@ posy(posy)
 {
 }
 
-ChordSFML::ChordSFML(Chord& chord, sf::Font& font, vector<ChordSFML*>& all_chords, int& posx, int& posy):
+ChordSFML::ChordSFML(Chord& chord, sf::Font& font, vector<ChordSFML*>& all_chords, int posx, int posy):
 chord(chord),
 all_chords(all_chords),
 show_check_box("show",font),
@@ -164,6 +164,16 @@ show_chord(false)
 vector<Key*> Chord::get_vector_of_keys()
 {
     return this->keys;
+}
+
+int Chord::get_posx()
+{
+    return this->posx;
+}
+
+int Chord::get_posy()
+{
+    return this->posy;
 }
 
 string Chord::get_name()

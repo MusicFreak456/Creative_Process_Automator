@@ -69,6 +69,7 @@ void Scale::generate_scale()
 
 void ScaleSFMLWindow::change_root(Key* new_root)
 {
+    this->dark_down();
     scale.change_root(new_root);
     this->string_repr.setString(scale.get_string_repr());
     this->set_title();

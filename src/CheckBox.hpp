@@ -3,6 +3,8 @@
 #include<SFML/Graphics.hpp>
 #include<iostream>
 
+#include"Strategy.hpp"
+
 using namespace std;
 
 /*!
@@ -12,7 +14,7 @@ using namespace std;
     Creates checkbox using given string and font.
 */
 
-class CheckBox :public sf::Drawable
+class CheckBox :public sf::Drawable, public IClickableSFML
 {
 private:
     sf::RectangleShape border;

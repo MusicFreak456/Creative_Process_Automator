@@ -3,12 +3,14 @@
 #include<SFML/Graphics.hpp>
 #include<iostream>
 
+#include"Strategy.hpp"
+
 /*!
     \class VerticalSlider
     \brief Implements vertical slider.
 */
 
-class VerticalSlider :public sf::Drawable
+class VerticalSlider :public sf::Drawable, public IClickableSFML
 {
 private:
 

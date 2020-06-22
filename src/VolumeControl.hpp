@@ -5,6 +5,7 @@
 
 #include"Slider.hpp"
 #include"Keyboard.hpp"
+#include"Strategy.hpp"
 
 using namespace std;
 
@@ -31,7 +32,7 @@ public:
     \brief Creates user interface for controling sound volume.
 */
 
-class VolumeSFMLWindow :public sf::Drawable
+class VolumeSFMLWindow :public sf::Drawable, public IClickableSFML
 {
 private:
     sf::RectangleShape border;

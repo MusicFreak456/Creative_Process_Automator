@@ -5,6 +5,7 @@
 #include<vector>
 #include<iostream>
 #include"CheckBox.hpp"
+#include"Strategy.hpp"
 
 using namespace std;
 
@@ -38,7 +39,7 @@ public:
     \brief Menages displaying scale
 */
 
-class ScaleSFMLWindow :public sf::Drawable
+class ScaleSFMLWindow :public sf::Drawable, public IClickableSFML
 {
 private:
     Scale& scale;

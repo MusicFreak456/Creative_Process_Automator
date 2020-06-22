@@ -7,6 +7,7 @@
 #include"Keyboard.hpp"
 #include"Scale.hpp"
 #include"CheckBox.hpp"
+#include"Strategy.hpp"
 
 using namespace std;
 
@@ -42,9 +43,9 @@ private:
 class Chord
 {
 public:
+protected:
     int posx;
     int posy;
-protected:
 
     vector<Key*> keys;
 
@@ -57,7 +58,8 @@ public:
     void play();
     vector<Key*> get_vector_of_keys();
     string get_name();
-
+    int get_posx();
+    int get_posy();
 };
 
 /*!
@@ -65,7 +67,7 @@ public:
     \brief Maneges displaying single chord
 */
 
-class ChordSFML :public sf::Drawable
+class ChordSFML :public sf::Drawable, public IClickableSFML
 {
 private:
     sf::RectangleShape border;
@@ -77,7 +79,7 @@ private:
 
     bool show_chord;
 public:
-    ChordSFML(Chord&, sf::Font&,vector<ChordSFML*>&, int&, int&);
+    ChordSFML(Chord&, sf::Font&,vector<ChordSFML*>&, int, int);
     void light_up();
     void dark_down();
     bool is_shown();
@@ -143,7 +145,7 @@ private:
     \brief Responsible for displaying table of chords
 */
 
-class ChordsSFMLWindow :public sf::Drawable
+class ChordsSFMLWindow :public sf::Drawable, public IClickableSFML
 {
 private:
     sf::RectangleShape border;
