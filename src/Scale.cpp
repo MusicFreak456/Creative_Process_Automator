@@ -1,7 +1,7 @@
 #include"Scale.hpp"
 
-ScaleWindow::ScaleWindow(Keyboard * keyboard, Key * root_key ,sf::Font & font): 
-scale(keyboard,root_key), 
+ScaleSFMLWindow::ScaleSFMLWindow(Scale& scale ,sf::Font & font): 
+scale(scale), 
 ch_box("Show scale",font)
 {
     this->ch_box.move_position(950,0);
@@ -16,7 +16,7 @@ ch_box("Show scale",font)
     this->string_repr.setPosition(340,50);
     this->string_repr.setCharacterSize(40);
 
-    this->string_repr.setString(scale.generate_scale());
+    this->string_repr.setString(scale.get_string_repr());
     this->set_title();
     
     this->border.setPosition(304,0);
@@ -27,10 +27,10 @@ ch_box("Show scale",font)
 Scale::Scale(Keyboard * keyboard, Key * root_key): keyboard(keyboard), root_key(root_key)
 {
     this->notes.push_back(this->root_key);
-    
+    this->generate_scale();
 }
 
-void ScaleWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
+void ScaleSFMLWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
     target.draw(this->border,states);
     target.draw(this->title,states);
@@ -38,7 +38,7 @@ void ScaleWindow::draw(sf::RenderTarget& target,sf::RenderStates states) const
     target.draw(this->ch_box,states);
 }
 
-void ScaleWindow::set_title()
+void ScaleSFMLWindow::set_title()
 {
     this->title.setString(this->scale.set_title());
 }
@@ -48,7 +48,7 @@ string Scale::set_title()
     return root_key->get_note() + " major scale: ";
 }
 
-string Scale::generate_scale()
+void Scale::generate_scale()
 {
     int root_value = root_key->get_value();
     if(root_value < Keyboard::number_of_keys - 1 )this->notes.push_back( keyboard->find_key(root_value + 2));
@@ -64,12 +64,13 @@ string Scale::generate_scale()
         repr += k->get_note() + "   ";
     }
 
-    return repr;    
+    this->str_repr = repr;    
 }
 
-void ScaleWindow::change_root(Key* new_root)
+void ScaleSFMLWindow::change_root(Key* new_root)
 {
-    this->string_repr.setString(scale.change_root(new_root));
+    scale.change_root(new_root);
+    this->string_repr.setString(scale.get_string_repr());
     this->set_title();
     if(this->show_scale)
     {
@@ -77,52 +78,50 @@ void ScaleWindow::change_root(Key* new_root)
     }
 }
 
-string Scale::change_root(Key* new_root)
+void Scale::change_root(Key* new_root)
 {
-    string to_return;
-    this->dark_down();
     this->root_key = new_root;
     this->root_key->activate();
     this->notes.clear();
     this->notes.push_back(root_key);
-    to_return = this->generate_scale();
-    
-    return to_return;
+    this->generate_scale();
 }
 
-void ScaleWindow::light_up()
+string Scale::get_string_repr()
 {
-    this->scale.light_up();
+    return this->str_repr;
 }
 
-void Scale::light_up()
+void ScaleSFMLWindow::light_up()
 {
-    for(Key * k : notes)
+    vector<Key *> vector_of_notes  = this->scale.get_vector_of_notes();
+    Key * root = this->scale.get_root_key();
+
+    for(Key * k : vector_of_notes)
     {
-        if(k!=this->root_key)k->in_scale();
+        if(k!=root)k->in_scale();
         else k->activate();
     }
 }
 
-void ScaleWindow::dark_down()
+void ScaleSFMLWindow::dark_down()
 {
-    scale.dark_down();
-}
+    vector<Key *> vector_of_notes  = this->scale.get_vector_of_notes();
+    Key * root = this->scale.get_root_key();
 
-void Scale::dark_down()
-{
-    for(Key * k : notes)
+    for(Key * k : vector_of_notes)
     {
-        if(k!=root_key)
+        if(k!=root)
         k->deactivate_scale();
     }
+
 }
 
-void ScaleWindow::hovers_detection(sf::Vector2f mouse_coords)
+void ScaleSFMLWindow::hovers_detection(sf::Vector2f mouse_coords)
 {
     this->ch_box.hovers_detection(mouse_coords);
 }
-void ScaleWindow::mouse_pressed(sf::Vector2f mouse_coords)
+void ScaleSFMLWindow::mouse_pressed(sf::Vector2f mouse_coords)
 {
     this->ch_box.mouse_pressed(mouse_coords);
     if(this->ch_box.is_checked() && !this->show_scale)
@@ -137,9 +136,9 @@ void ScaleWindow::mouse_pressed(sf::Vector2f mouse_coords)
     }
 }
 
-vector<Key *> ScaleWindow::get_vector_of_notes()
+Key * Scale::get_root_key()
 {
-    return scale.get_vector_of_notes();
+    return this->root_key;
 }
 
 vector<Key *> Scale::get_vector_of_notes()

@@ -20,16 +20,17 @@ private:
 
     Keyboard * keyboard;
     Key * root_key;
+
+    string str_repr;
     
 public:
     Scale(Keyboard *, Key *);
-    string generate_scale();
+    void generate_scale();
     vector<Key *> get_vector_of_notes();
+    Key * get_root_key();
     string set_title();
-    string change_root(Key*);
-    void light_up();
-    void dark_down();
-
+    string get_string_repr();
+    void change_root(Key*);
 };
 
 /*!
@@ -37,10 +38,10 @@ public:
     \brief Menages displaying scale
 */
 
-class ScaleWindow :public sf::Drawable
+class ScaleSFMLWindow :public sf::Drawable
 {
 private:
-    Scale scale;
+    Scale& scale;
 
     sf::Text title;
     sf::Text string_repr;
@@ -53,8 +54,7 @@ private:
 
     void set_title();
 public:
-    ScaleWindow(Keyboard *, Key*, sf::Font&);
-    vector<Key *> get_vector_of_notes();
+    ScaleSFMLWindow(Scale&, sf::Font&);
     void change_root(Key*);
     void light_up();
     void dark_down();

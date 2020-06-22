@@ -18,14 +18,17 @@
 class ControlPanel :public sf::Drawable
 {
 private:
+    Key* root_note;
+    Keyboard* keyboard;
+    
+    Scale scale;
+
     ActiveNoteWindow root_window;
     ChordWindow chord_window;
     VolumeWindow volume_window;
-    ScaleWindow scale_window;
+    ScaleSFMLWindow scale_window;
     ProgressionWindow progression_window;
 
-    Key* root_note;
-    Keyboard* keyboard;
 public:
     ControlPanel(sf::Font& ,Key*,Keyboard*);
     void set_root(Key*);

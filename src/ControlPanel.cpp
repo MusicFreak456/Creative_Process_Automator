@@ -2,14 +2,15 @@
 
 ControlPanel::ControlPanel(sf::Font& font, Key* root_note, Keyboard* keyboard): 
 root_note(root_note), 
+scale(keyboard,root_note),
 root_window(ActiveNoteWindow(font,root_note->get_note())),
 keyboard(keyboard),
-scale_window(keyboard,root_note,font),
+scale_window(scale,font),
 chord_window(keyboard,font),
 volume_window(font,keyboard, 20),
 progression_window(font)
 {
-    this->chord_window.set_scale(&(this->scale_window));
+    this->chord_window.set_scale(&(this->scale));
     this->root_note->set_root();
 }
 
@@ -30,7 +31,7 @@ void ControlPanel::set_root(Key* root_note)
     this->root_note->play();
     this->root_window.set_note(root_note->get_note());
     this->scale_window.change_root(root_note);
-    this->chord_window.set_scale(&(this->scale_window));
+    this->chord_window.set_scale(&(this->scale));
 }
 
 void ControlPanel::hovers_detection(sf::Vector2f mouse_coords)

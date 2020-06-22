@@ -29,7 +29,7 @@ void ChordWindow::mouse_pressed(sf::Vector2f mousepos)
     }
 }
 
-void ChordWindow::set_scale(ScaleWindow* scale)
+void ChordWindow::set_scale(Scale* scale)
 {
     this->scale = scale;
     for(Chord* x: this->chords)
@@ -40,7 +40,7 @@ void ChordWindow::set_scale(ScaleWindow* scale)
     generate_chords(this->font,this->scale);
 }
 
-void ChordWindow::generate_chords(sf::Font& font,ScaleWindow * scale)
+void ChordWindow::generate_chords(sf::Font& font,Scale * scale)
 {
     Chord * new_chord;
 

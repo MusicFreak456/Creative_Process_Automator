@@ -111,18 +111,18 @@ private:
     sf::Text title;
     sf::Font font;
 
-    ScaleWindow * scale;
+    Scale * scale;
     Keyboard * keyboard;
     
     vector<Chord*> chords;
 public:
     ChordWindow(Keyboard*, sf::Font&);
     void move_position(int,int);
-    void set_scale(ScaleWindow*);
+    void set_scale(Scale*);
     void hovers_detection(sf::Vector2f);
     void mouse_pressed(sf::Vector2f);
 private:
-    void generate_chords(sf::Font&, ScaleWindow*);
+    void generate_chords(sf::Font&, Scale*);
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
 };
