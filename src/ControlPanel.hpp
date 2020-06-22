@@ -12,7 +12,7 @@
     \class ControlPanel
     \brief Class which accumulates all windows.
 
-    One of the main classes. Sort of container for all windows in program.
+    One of the main classes. Sort of container for all windows and objects in program.
 */
 
 class ControlPanel :public sf::Drawable
@@ -23,12 +23,13 @@ private:
 
     Scale scale;
     Chords chords;
+    VolumeControl vol_ctrl;
 
-    ActiveNoteWindow root_window;
+    ActiveNoteSFMLWindow root_window;
     ChordsSFMLWindow chord_window;
-    VolumeWindow volume_window;
+    VolumeSFMLWindow volume_window;
     ScaleSFMLWindow scale_window;
-    ProgressionWindow progression_window;
+    ProgressionWindow progression_window; //Work in progress
 
 public:
     ControlPanel(sf::Font& ,Key*,Keyboard*);

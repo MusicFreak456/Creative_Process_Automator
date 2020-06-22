@@ -5,11 +5,11 @@
 using namespace std;
 
 /*!
-    \class ActiveNoteWindow
+    \class ActiveNoteSFMLWindow
     \brief Maneges displaying current active note.
 */
 
-class ActiveNoteWindow :public sf::Drawable
+class ActiveNoteSFMLWindow :public sf::Drawable
 {
 private:
     sf::Text title;
@@ -19,7 +19,7 @@ private:
     void change_string_pos(int,int);
     void reset_string_pos();
 public:
-    ActiveNoteWindow(sf::Font&,string);
+    ActiveNoteSFMLWindow(sf::Font&,string);
 
     void set_note(string);
 
