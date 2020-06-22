@@ -20,11 +20,12 @@ class ControlPanel :public sf::Drawable
 private:
     Key* root_note;
     Keyboard* keyboard;
-    
+
     Scale scale;
+    Chords chords;
 
     ActiveNoteWindow root_window;
-    ChordWindow chord_window;
+    ChordsSFMLWindow chord_window;
     VolumeWindow volume_window;
     ScaleSFMLWindow scale_window;
     ProgressionWindow progression_window;

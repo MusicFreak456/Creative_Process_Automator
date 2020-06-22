@@ -3,10 +3,11 @@
 ControlPanel::ControlPanel(sf::Font& font, Key* root_note, Keyboard* keyboard): 
 root_note(root_note), 
 scale(keyboard,root_note),
+chords(keyboard,&scale),
 root_window(ActiveNoteWindow(font,root_note->get_note())),
 keyboard(keyboard),
 scale_window(scale,font),
-chord_window(keyboard,font),
+chord_window(chords,font),
 volume_window(font,keyboard, 20),
 progression_window(font)
 {

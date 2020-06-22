@@ -34,7 +34,7 @@ public:
 };
 
 /*!
-    \class ScaleWindow
+    \class ScaleSFMLWindow
     \brief Menages displaying scale
 */
 

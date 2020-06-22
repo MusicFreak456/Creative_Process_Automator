@@ -11,13 +11,13 @@
 using namespace std;
 
 /*!
-    \class ChordWindowTile
+    \class NoteSFMLTile
     \brief Small tile for displaying one of the notes.
 
     Small tile created with given string. Used for displaynig series of notes from chord.
 */
 
-class ChordWindowTile :public sf::Drawable
+class NoteSFMLTile :public sf::Drawable
 {
 public:
     static const int width = 55;
@@ -27,7 +27,7 @@ private:
 
     sf::Text text;
 public:
-    ChordWindowTile(sf::Font&,string,int,int,bool);
+    NoteSFMLTile(sf::Font&,string,int,int,bool);
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
 };
@@ -39,30 +39,51 @@ private:
     Implements most of the chord functionalities, except for generating, which is specific to different kinds of chords.
 */
 
-class Chord :public sf::Drawable
+class Chord
 {
+public:
+    int posx;
+    int posy;
 protected:
-    sf::RectangleShape border;
-    CheckBox show_check_box;
 
-    vector<Chord *> * all_chords;
     vector<Key*> keys;
-    vector<ChordWindowTile> tiles;
 
     string name;
     Key * start_key;
 
+public:
+    Chord(string,Key*,Keyboard*,int, int);
+    virtual void generate(Key*,Keyboard*,int,int) =0;
+    void play();
+    vector<Key*> get_vector_of_keys();
+    string get_name();
+
+};
+
+/*!
+    \class ChordSFML
+    \brief Maneges displaying single chord
+*/
+
+class ChordSFML :public sf::Drawable
+{
+private:
+    sf::RectangleShape border;
+    CheckBox show_check_box;
+    vector<NoteSFMLTile> tiles;
+    vector<ChordSFML *>& all_chords;
+
+    Chord& chord;
+
     bool show_chord;
 public:
-    Chord(sf::Font&,string,Key*,Keyboard*,vector<Chord*>*,int, int);
+    ChordSFML(Chord&, sf::Font&,vector<ChordSFML*>&, int&, int&);
     void light_up();
     void dark_down();
     bool is_shown();
-    void change_root();
-    void play();
     void hovers_detection(sf::Vector2f);
     void mouse_pressed(sf::Vector2f);
-    virtual void generate(sf::Font&,Key*,Keyboard*,int,int) =0;
+    void change_root();
 protected:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
 };
@@ -77,8 +98,8 @@ protected:
 class MajorChord :public Chord
 {
 public:
-    MajorChord(sf::Font&,string,Key*,Keyboard*,vector<Chord*>*,int,int);
-    virtual void generate(sf::Font&,Key*,Keyboard*,int,int);
+    MajorChord(string,Key*,Keyboard*,int,int);
+    virtual void generate(Key*,Keyboard*,int,int);
 };
 
 /*!
@@ -91,42 +112,55 @@ public:
 class MinorChord :public Chord
 {
 public:
-    MinorChord(sf::Font&,string,Key*,Keyboard*,vector<Chord*>*,int,int);
-    virtual void generate(sf::Font&,Key*,Keyboard*,int,int);
+    MinorChord(string,Key*,Keyboard*,int,int);
+    virtual void generate(Key*,Keyboard*,int,int);
 };
 
 /*!
-    \class ChordWindow
-    \brief Class for displaying all chords.
-
-    Maneges displaying all chords in given scale.
+    \class Chords
+    \brief Collection of all chords
 */
 
 
-class ChordWindow :public sf::Drawable
+class Chords 
 {
 private:
-
-    sf::RectangleShape border;
-    sf::Text title;
-    sf::Font font;
-
     Scale * scale;
     Keyboard * keyboard;
     
     vector<Chord*> chords;
 public:
-    ChordWindow(Keyboard*, sf::Font&);
-    void move_position(int,int);
+    Chords(Keyboard*,Scale*);
     void set_scale(Scale*);
+    vector<Chord*> get_vector_of_all_chords();
+    
+private:
+    void generate_chords(Scale*);
+};
+
+/*!
+    \class ChordsSFMLWindow
+    \brief Responsible for displaying table of chords
+*/
+
+class ChordsSFMLWindow :public sf::Drawable
+{
+private:
+    sf::RectangleShape border;
+    sf::Text title;
+    sf::Font font;
+
+    vector<ChordSFML*> vector_of_sfml_chords;
+
+    Chords& chords;
+public:
+    ChordsSFMLWindow(Chords&, sf::Font&);
     void hovers_detection(sf::Vector2f);
     void mouse_pressed(sf::Vector2f);
-private:
-    void generate_chords(sf::Font&, Scale*);
+    void set_scale(Scale*);
 private:
     virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
 };
-
 
 
 #endif
