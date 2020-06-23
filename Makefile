@@ -9,7 +9,7 @@ OBJ = $(OBJ_DIR)/main.o \
 	$(OBJ_DIR)/ActiveNote.o \
 	$(OBJ_DIR)/ControlPanel.o \
 	$(OBJ_DIR)/Scale.o \
-	$(OBJ_DIR)/CheckBox.o \
+	$(OBJ_DIR)/ClickableBox.o \
 	$(OBJ_DIR)/Chord.o \
 	$(OBJ_DIR)/VolumeControl.o \
 	$(OBJ_DIR)/Progression.o \

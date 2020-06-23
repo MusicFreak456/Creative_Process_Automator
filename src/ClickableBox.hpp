@@ -16,7 +16,7 @@ using namespace std;
 
 class CheckBox :public sf::Drawable, public IClickableSFML
 {
-private:
+protected:
     sf::RectangleShape border;
     sf::RectangleShape ch_box;
     sf::Text title;
@@ -30,6 +30,19 @@ public:
     void hovers_detection(sf::Vector2f);
     void mouse_pressed(sf::Vector2f);
     bool is_checked();
+    void uncheck();
+private:
+    void draw(sf::RenderTarget&,sf::RenderStates) const;
+};
+
+class PlayBox :public CheckBox
+{
+private:
+    sf::CircleShape triangle;
+public:
+    PlayBox(string,sf::Font&);
+    void move_position(float x, float y);
+    void mouse_pressed(sf::Vector2f);
     void uncheck();
 private:
     void draw(sf::RenderTarget&,sf::RenderStates) const;

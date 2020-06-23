@@ -133,17 +133,22 @@ ChordSFML::ChordSFML(Chord& chord, sf::Font& font, vector<ChordSFML*>& all_chord
 chord(chord),
 all_chords(all_chords),
 show_check_box("show",font),
-show_chord(false)
+play_box("play",font),
+show_chord(false),
+playing(false)
 {
     this->border.setPosition(posx,posy);
-    this->border.setSize(sf::Vector2f(500,40));
+    this->border.setSize(sf::Vector2f(517,40));
     this->border.setFillColor(sf::Color(255,255,255,10));
 
-    int checkbox_width = 100;
-    int checkbox_height = 40;
+    int box_width = 85;
+    int box_height = 30;
 
-    this->show_check_box.change_size(checkbox_width,checkbox_height);
-    this->show_check_box.move_position(posx+500-checkbox_width,posy);
+    this->show_check_box.change_size(box_width,box_height);
+    this->show_check_box.move_position(posx+512-box_width,posy+5);
+
+    this->play_box.change_size(box_width,box_height);
+    this->play_box.move_position(posx+512-2*box_width-3,posy+5);
 
     this->tiles.push_back(NoteSFMLTile(font,this->chord.get_name(),posx+22,posy+2,true));
 
@@ -240,6 +245,7 @@ void ChordSFML::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
     target.draw(this->border,states);
     target.draw(this->show_check_box,states);
+    target.draw(this->play_box,states);
 
     for(const NoteSFMLTile& x : this->tiles)
     {
@@ -255,9 +261,28 @@ void Chord::play()
     }
 }
 
+bool Chord::is_playing()
+{
+    for(Key * x: this->keys)
+    {
+        return x->is_playing();
+    }
+    return false;
+}
+
 void ChordSFML::hovers_detection(sf::Vector2f mousepos)
 {
     this->show_check_box.hovers_detection(mousepos);
+    this->play_box.hovers_detection(mousepos);
+
+    if(play_box.is_checked())
+    {
+        if(!this->chord.is_playing())
+        {
+            this->play_box.uncheck();
+            this->playing = false;
+        }
+    }
 }
 void ChordSFML::mouse_pressed(sf::Vector2f mousepos)
 {
@@ -270,12 +295,18 @@ void ChordSFML::mouse_pressed(sf::Vector2f mousepos)
         }
         this->show_chord = true;
         this->light_up();
-        this->chord.play();
     }
     else if (!this->show_check_box.is_checked() && this->show_chord)
     {
         this->show_chord = false;
         this->dark_down();
+    }
+
+    this->play_box.mouse_pressed(mousepos);
+    if(this->play_box.is_checked() & !this->playing) 
+    {
+        this->chord.play();
+        this->playing = true;
     }
     
 }
@@ -290,17 +321,14 @@ void MinorChord::generate(Key* start_key,Keyboard * keyboard,int start_posx, int
 {
     this->keys.push_back(start_key);
     int start_key_value = start_key->get_value();
-    //this->tiles.push_back(NoteSFMLTile(font,start_key->get_note(),start_posx,start_posy,false));
 
     Key * next = keyboard->find_key(start_key_value+3);
     if(next == nullptr) return;
     this->keys.push_back(next);
-    //this->tiles.push_back(NoteSFMLTile(font,next->get_note(),start_posx + NoteSFMLTile::width+2,start_posy,false));
 
     next = keyboard->find_key(start_key_value+7);
     if(next == nullptr) return;
     this->keys.push_back(next);
-    //this->tiles.push_back(NoteSFMLTile(font,next->get_note(),start_posx + NoteSFMLTile::width*2+4,start_posy,false));
 }
 
 NoteSFMLTile::NoteSFMLTile(sf::Font& font,string label,int posx, int posy, bool opacity)

@@ -4,7 +4,7 @@
 #include"Keyboard.hpp"
 #include<vector>
 #include<iostream>
-#include"CheckBox.hpp"
+#include"ClickableBox.hpp"
 #include"Strategy.hpp"
 
 using namespace std;

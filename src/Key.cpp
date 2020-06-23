@@ -25,9 +25,15 @@ Key()
     this->setSize(sf::Vector2f(Width,Height));
 }
 
+bool Key::is_playing()
+{
+    return this->sound.getStatus() == sf::Sound::Playing;
+}
+
 void Key::set_root()
 {
     this->root=true;
+    this->activate();
 }
 void Key::unset_root()
 {

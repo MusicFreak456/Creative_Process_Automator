@@ -6,7 +6,7 @@
 #include<SFML/Graphics.hpp>
 #include"Keyboard.hpp"
 #include"Scale.hpp"
-#include"CheckBox.hpp"
+#include"ClickableBox.hpp"
 #include"Strategy.hpp"
 
 using namespace std;
@@ -56,6 +56,7 @@ public:
     Chord(string,Key*,Keyboard*,int, int);
     virtual void generate(Key*,Keyboard*,int,int) =0;
     void play();
+    bool is_playing();
     vector<Key*> get_vector_of_keys();
     string get_name();
     int get_posx();
@@ -72,12 +73,14 @@ class ChordSFML :public sf::Drawable, public IClickableSFML
 private:
     sf::RectangleShape border;
     CheckBox show_check_box;
+    PlayBox play_box;
     vector<NoteSFMLTile> tiles;
     vector<ChordSFML *>& all_chords;
 
     Chord& chord;
 
     bool show_chord;
+    bool playing;
 public:
     ChordSFML(Chord&, sf::Font&,vector<ChordSFML*>&, int, int);
     void light_up();

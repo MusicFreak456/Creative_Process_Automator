@@ -41,6 +41,7 @@ public:
     void unset_root();
     bool is_root();
     void play();
+    bool is_playing();
     virtual void highlight()= 0;
     virtual void in_chord()=0;
     virtual void in_scale()=0;
@@ -89,6 +90,5 @@ public:
     void in_scale();
     void in_chord();
 };
-
 
 #endif

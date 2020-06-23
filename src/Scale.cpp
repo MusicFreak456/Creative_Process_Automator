@@ -22,6 +22,7 @@ ch_box("Show scale",font)
     this->border.setPosition(304,0);
     this->border.setSize(sf::Vector2f(796,146));
     this->border.setFillColor(sf::Color(255,255,255,5));
+
 }
 
 Scale::Scale(Keyboard * keyboard, Key * root_key): keyboard(keyboard), root_key(root_key)
