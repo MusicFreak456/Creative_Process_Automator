@@ -76,6 +76,11 @@ void Chords::generate_chords(Scale * scale)
 {
     Chord * new_chord;
 
+    for(Chord * x : this->chords)
+    {
+        delete(x);
+    }
+
     this->chords.clear();
 
     vector<Key *> scale_notes = scale->get_vector_of_notes();
@@ -123,19 +128,22 @@ void ChordsSFMLWindow::draw(sf::RenderTarget& target,sf::RenderStates states) co
 
 Chord::Chord(string name,Key* start_key,Keyboard * keyboard,int posx, int posy): 
 start_key(start_key),
+keyboard(keyboard),
 name(name),
 posx(posx),
-posy(posy)
-{
-}
+posy(posy),
+invertable(name == "IV" || name == "V" || name == "vi")
+{}
 
 ChordSFML::ChordSFML(Chord& chord, sf::Font& font, vector<ChordSFML*>& all_chords, int posx, int posy):
 chord(chord),
 all_chords(all_chords),
 show_check_box("show",font),
 play_box("play",font),
+invert_check_box("invert",font),
 show_chord(false),
-playing(false)
+playing(false),
+inverted(false)
 {
     this->border.setPosition(posx,posy);
     this->border.setSize(sf::Vector2f(517,40));
@@ -147,8 +155,11 @@ playing(false)
     this->show_check_box.change_size(box_width,box_height);
     this->show_check_box.move_position(posx+512-box_width,posy+5);
 
-    this->play_box.change_size(box_width,box_height);
-    this->play_box.move_position(posx+512-2*box_width-3,posy+5);
+    this->play_box.change_size(box_width-7,box_height);
+    this->play_box.move_position(posx+512-2*box_width+4,posy+5);
+
+    this->invert_check_box.change_size(box_width+7,box_height);
+    this->invert_check_box.move_position(posx+512-3*box_width-6,posy+5);
 
     this->tiles.push_back(NoteSFMLTile(font,this->chord.get_name(),posx+22,posy+2,true));
 
@@ -221,30 +232,28 @@ bool ChordSFML::is_shown()
 MajorChord::MajorChord(string name,Key * start_key,Keyboard* keyboard,int posx,int posy):
 Chord(name,start_key,keyboard,posx,posy)
 {
-    this->generate(start_key,keyboard,posx+22+NoteSFMLTile::width+2,posy+2);
+    this->generate(start_key);
 }
 
-void MajorChord::generate(Key* start_key,Keyboard* keyboard,int start_posx, int start_posy)
+void MajorChord::generate(Key* start_key)
 {
     this->keys.push_back(start_key);
     int start_key_value = start_key->get_value();
-    //this->tiles.push_back(NoteSFMLTile(font,start_key->get_note(),start_posx,start_posy,false));
 
-    Key * next = keyboard->find_key(start_key_value+4);
+    Key * next = this->keyboard->find_key(start_key_value+4);
     if(next == nullptr) return;
     this->keys.push_back(next);
-    //this->tiles.push_back(NoteSFMLTile(font,next->get_note(),start_posx + NoteSFMLTile::width+2,start_posy,false));
 
-    next = keyboard->find_key(start_key_value+7);
+    next = this->keyboard->find_key(start_key_value+7);
     if(next == nullptr) return;
     this->keys.push_back(next);
-    //this->tiles.push_back(NoteSFMLTile(font,next->get_note(),start_posx + NoteSFMLTile::width*2+4,start_posy,false));
 }
 
 void ChordSFML::draw(sf::RenderTarget& target,sf::RenderStates states) const
 {
     target.draw(this->border,states);
     target.draw(this->show_check_box,states);
+    if(this->chord.invertable)target.draw(this->invert_check_box,states);
     target.draw(this->play_box,states);
 
     for(const NoteSFMLTile& x : this->tiles)
@@ -261,6 +270,45 @@ void Chord::play()
     }
 }
 
+void Chord::invert(int by_value)
+{
+    int number_of_keys = this->keys.size();
+    if(number_of_keys <= 1) return;
+
+    Key * key;
+    int value;
+
+    if(name == "vi")
+    {
+        key = this->keys[1];
+        value = key->get_value();
+        value += by_value;
+        key = this->keyboard->find_key(value);
+        this->keys[1] = key;
+
+        if(number_of_keys > 2)
+        {
+            key = this->keys[2];
+            value = key->get_value();
+            value += by_value;
+            key = this->keyboard->find_key(value);
+            this->keys[2] = key;
+        }
+
+    }
+    else
+    {
+        if(number_of_keys > 2)
+        {
+            key = this->keys[2];
+            value = key->get_value();
+            value += by_value;
+            key = this->keyboard->find_key(value);
+            this->keys[2] = key;
+        }
+    }
+}
+
 bool Chord::is_playing()
 {
     for(Key * x: this->keys)
@@ -273,6 +321,7 @@ bool Chord::is_playing()
 void ChordSFML::hovers_detection(sf::Vector2f mousepos)
 {
     this->show_check_box.hovers_detection(mousepos);
+    if(this->chord.invertable)this->invert_check_box.hovers_detection(mousepos);
     this->play_box.hovers_detection(mousepos);
 
     if(play_box.is_checked())
@@ -308,25 +357,53 @@ void ChordSFML::mouse_pressed(sf::Vector2f mousepos)
         this->chord.play();
         this->playing = true;
     }
+
+    if(this->chord.invertable)
+    {
+        bool light_up = false;
+        this->invert_check_box.mouse_pressed(mousepos);
+        if(this->invert_check_box.is_checked() && !this->inverted)
+        {
+            if(this->show_chord)
+            {
+                light_up = true;
+                this->dark_down();
+            }
+            this->chord.invert(-12);
+            if(light_up)this->light_up();
+            this->inverted = true;
+        }
+        else if (!this->invert_check_box.is_checked() && this->inverted)
+        {
+            if(this->show_chord)
+            {
+                light_up = true;
+                this->dark_down();
+            }
+            this->chord.invert(12);
+            if(light_up)this->light_up();
+            this->inverted = false;
+        }
+    }
     
 }
 
 MinorChord::MinorChord(string name,Key* start_key,Keyboard* keyboard,int posx,int posy):
 Chord(name,start_key,keyboard,posx,posy)
 {
-    this->generate(start_key,keyboard,posx+22+NoteSFMLTile::width+2,posy+2);
+    this->generate(start_key);
 }
 
-void MinorChord::generate(Key* start_key,Keyboard * keyboard,int start_posx, int start_posy)
+void MinorChord::generate(Key* start_key)
 {
     this->keys.push_back(start_key);
     int start_key_value = start_key->get_value();
 
-    Key * next = keyboard->find_key(start_key_value+3);
+    Key * next = this->keyboard->find_key(start_key_value+3);
     if(next == nullptr) return;
     this->keys.push_back(next);
 
-    next = keyboard->find_key(start_key_value+7);
+    next = this->keyboard->find_key(start_key_value+7);
     if(next == nullptr) return;
     this->keys.push_back(next);
 }
@@ -348,5 +425,3 @@ void NoteSFMLTile::draw(sf::RenderTarget& target,sf::RenderStates states) const
     target.draw(this->border,states);
     target.draw(this->text,states);
 }
-
-

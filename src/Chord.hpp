@@ -46,15 +46,21 @@ protected:
     int posx;
     int posy;
 
+    bool invertable;
+
     vector<Key*> keys;
 
     string name;
     Key * start_key;
+    Keyboard * keyboard;
 
 public:
+    friend class ChordSFML;
+
     Chord(string,Key*,Keyboard*,int, int);
-    virtual void generate(Key*,Keyboard*,int,int) =0;
+    virtual void generate(Key*)=0;
     void play();
+    void invert(int);
     bool is_playing();
     vector<Key*> get_vector_of_keys();
     string get_name();
@@ -72,14 +78,16 @@ class ChordSFML :public sf::Drawable, public IClickableSFML
 private:
     sf::RectangleShape border;
     CheckBox show_check_box;
+    CheckBox invert_check_box;
     PlayBox play_box;
     vector<NoteSFMLTile> tiles;
-    vector<ChordSFML *>& all_chords;
+    vector<ChordSFML*>& all_chords;
 
     Chord& chord;
 
     bool show_chord;
     bool playing;
+    bool inverted;
 public:
     ChordSFML(Chord&, sf::Font&,vector<ChordSFML*>&, int, int);
     void light_up();
@@ -103,7 +111,7 @@ class MajorChord :public Chord
 {
 public:
     MajorChord(string,Key*,Keyboard*,int,int);
-    virtual void generate(Key*,Keyboard*,int,int);
+    virtual void generate(Key*);
 };
 
 /*!
@@ -117,7 +125,7 @@ class MinorChord :public Chord
 {
 public:
     MinorChord(string,Key*,Keyboard*,int,int);
-    virtual void generate(Key*,Keyboard*,int,int);
+    virtual void generate(Key*);
 };
 
 /*!
