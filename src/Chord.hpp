@@ -53,7 +53,6 @@ protected:
     string name;
     Key * start_key;
     Keyboard * keyboard;
-
 public:
     friend class ChordSFML;
 
@@ -87,7 +86,10 @@ private:
 
     bool show_chord;
     bool playing;
+    bool playing_hl;
     bool inverted;
+    void deactivate_playing_hl();
+    void activate_playing_hl();
 public:
     ChordSFML(Chord&, sf::Font&,vector<ChordSFML*>&, int, int);
     void light_up();

@@ -22,6 +22,7 @@ protected:
     bool active;
     bool scale;
     bool chord;
+    bool playing;
     sf::Color default_color;
     sf::SoundBuffer sound_buffer;
     sf::Sound sound;
@@ -37,6 +38,7 @@ public:
     void reset_color();
     void deactivate_chord();
     void deactivate_scale();
+    void deactivate_playing();
     void set_root();
     void unset_root();
     bool is_root();
@@ -45,6 +47,7 @@ public:
     virtual void highlight()= 0;
     virtual void in_chord()=0;
     virtual void in_scale()=0;
+    virtual void in_play()=0;
     virtual void activate()=0;
     virtual void deactivate()=0;
 };
@@ -68,6 +71,7 @@ public:
     void deactivate();
     void in_scale();
     void in_chord();
+    void in_play();
 };
 
 /*!
@@ -89,6 +93,7 @@ public:
     void deactivate();
     void in_scale();
     void in_chord();
+    void in_play();
 };
 
 #endif

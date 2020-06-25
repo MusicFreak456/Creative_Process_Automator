@@ -143,7 +143,8 @@ play_box("play",font),
 invert_check_box("invert",font),
 show_chord(false),
 playing(false),
-inverted(false)
+inverted(false),
+playing_hl(false)
 {
     this->border.setPosition(posx,posy);
     this->border.setSize(sf::Vector2f(517,40));
@@ -313,9 +314,34 @@ bool Chord::is_playing()
 {
     for(Key * x: this->keys)
     {
-        return x->is_playing();
+        if(!x->is_playing())
+        {
+            return false;
+        }
     }
-    return false;
+    return true;
+}
+
+void ChordSFML::deactivate_playing_hl()
+{
+    if(playing_hl)
+    {
+        playing_hl = false;
+        for(Key * x : this->chord.keys)
+        {
+            x->deactivate_playing();
+        }
+    }
+}
+
+void ChordSFML::activate_playing_hl()
+{
+    this->playing = true;
+    this->playing_hl = true;
+    for(Key * x : this->chord.keys)
+    {
+        x->in_play();
+    }
 }
 
 void ChordSFML::hovers_detection(sf::Vector2f mousepos)
@@ -329,6 +355,7 @@ void ChordSFML::hovers_detection(sf::Vector2f mousepos)
         if(!this->chord.is_playing())
         {
             this->play_box.uncheck();
+            this->deactivate_playing_hl();
             this->playing = false;
         }
     }
@@ -352,10 +379,15 @@ void ChordSFML::mouse_pressed(sf::Vector2f mousepos)
     }
 
     this->play_box.mouse_pressed(mousepos);
-    if(this->play_box.is_checked() & !this->playing) 
+    if(this->play_box.is_checked() && !this->playing) 
     {
+        for(ChordSFML * x: this->all_chords)
+        {
+            x->deactivate_playing_hl();
+            this->playing = false;
+        }
         this->chord.play();
-        this->playing = true;
+        this->activate_playing_hl();
     }
 
     if(this->chord.invertable)
@@ -369,6 +401,7 @@ void ChordSFML::mouse_pressed(sf::Vector2f mousepos)
                 light_up = true;
                 this->dark_down();
             }
+            this->deactivate_playing_hl();
             this->chord.invert(-12);
             if(light_up)this->light_up();
             this->inverted = true;
@@ -380,6 +413,7 @@ void ChordSFML::mouse_pressed(sf::Vector2f mousepos)
                 light_up = true;
                 this->dark_down();
             }
+            this->deactivate_playing_hl();
             this->chord.invert(12);
             if(light_up)this->light_up();
             this->inverted = false;

@@ -6,6 +6,7 @@ Key::Key()
     this->root = false;
     this->scale = false;
     this->chord = false;
+    this->playing = false;
 }
 
 WhiteKey::WhiteKey():
@@ -109,6 +110,7 @@ void BlackKey::activate()
 void WhiteKey::deactivate()
 {
     this->active =false;
+
     if(chord){
         this->in_chord();
         return;
@@ -154,6 +156,11 @@ void Key::deactivate_scale()
     this->scale=false;
     this->deactivate();
 }
+void Key::deactivate_playing()
+{
+    this->playing=false;
+    this->deactivate();
+}
 
 void WhiteKey::in_scale()
 {
@@ -184,5 +191,21 @@ void BlackKey::in_chord()
     this->active = false;
     this->chord = true;
     this->default_color = sf::Color(204,0,0);
+    this->reset_color();
+}
+
+void WhiteKey::in_play()
+{
+    this->active = false;
+    this->playing = true;
+    this->default_color = sf::Color(230,153,255);
+    this->reset_color();
+}
+
+void BlackKey::in_play()
+{
+    this->active = false;
+    this->playing = true;
+    this->default_color = sf::Color(57,0,77);
     this->reset_color();
 }
