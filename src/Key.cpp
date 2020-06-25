@@ -39,6 +39,7 @@ void Key::set_root()
 void Key::unset_root()
 {
     this->root=false;
+    this->deactivate_playing();
     this->deactivate();
 }
 bool Key::is_root()
@@ -110,7 +111,11 @@ void BlackKey::activate()
 void WhiteKey::deactivate()
 {
     this->active =false;
-
+    if(playing)
+    {
+        this->in_play();
+        return;
+    }
     if(chord){
         this->in_chord();
         return;
@@ -130,6 +135,11 @@ void WhiteKey::deactivate()
 void BlackKey::deactivate()
 {
     this->active =false;
+    if(playing)
+    {
+        this->in_play();
+        return;
+    }
     if(chord){
         this->in_chord();
         return;

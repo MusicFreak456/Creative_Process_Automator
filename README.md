@@ -1,6 +1,6 @@
 # Creative Process Automator
 
-![N|Solid](https://cdn.discordapp.com/attachments/628850852697866260/724711826687787048/unknown.png)
+![N|Solid](https://cdn.discordapp.com/attachments/628850852697866260/725784406647636028/unknown.png)
 *preview*
 
 Program made for those who want to learn how to construct chords and chord progressions. Made as a project for objective programing course at University of Wroclaw.
