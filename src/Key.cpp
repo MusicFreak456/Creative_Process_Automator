@@ -95,14 +95,14 @@ void BlackKey::highlight()
 void WhiteKey::activate()
 {
     this->active = true;
-    this->default_color = sf::Color(0,77,38);
+    if(!chord) this->default_color = sf::Color(0,77,38);
     this->reset_color();
 }
 
 void BlackKey::activate()
 {
     this->active = true;
-    this->default_color = sf::Color(0,77,38);
+    if(!chord) this->default_color = sf::Color(0,77,38);
     this->reset_color();
 }
 

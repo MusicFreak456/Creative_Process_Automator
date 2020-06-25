@@ -42,7 +42,6 @@ private:
 
 class Chord
 {
-public:
 protected:
     int posx;
     int posy;
